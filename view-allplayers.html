@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Players</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Navbar -->
+  <nav class="bg-blue-900 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold">Team Name</a>
+      <div>
+        <a href="index.html#home" class="mr-4 hover:underline">Home</a>
+        <a href="index.html#gallery" class="mr-4 hover:underline">Gallery</a>
+        <a href="index.html#gallery" class="hover:underline">Gallery</a>
+      </div>
+    </div>
+  </nav>
+</head>
+
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">All Players</h1>
+
+    <div class="flex justify-center mb-4">
+      <input id="searchInput" type="text" placeholder="Search by name..." class="px-4 py-2 border border-gray-300 rounded w-1/2" oninput="searchPlayers()">
+    </div>
+
+    <div class="flex justify-center mb-6">
+      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('All')">All</button>
+      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Attack')">Attack</button>
+      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Midfielder')">Midfielders</button>
+      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Defender')">Defenders</button>
+      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Goalkeeper')">Keepers</button>
+    </div>
+
+    <div class="flex justify-end mb-4">
+      <label class="mr-2">Sort By:</label>
+      <select id="sortSelect" onchange="sortPlayers()" class="px-2 py-1 border border-gray-300 rounded">
+        <option value="name">Name</option>
+        <option value="goals">Goals</option>
+        <option value="assists">Assists</option>
+        <option value="appearances">Appearances</option>
+      </select>
+    </div>
+
+    <div id="playersContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+    <div class="flex justify-center mt-8">
+      <button onclick="prevPage()" class="bg-gray-300 px-4 py-2 rounded mx-1">Previous</button>
+      <button onclick="nextPage()" class="bg-gray-300 px-4 py-2 rounded mx-1">Next</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="playerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+    <div class="bg-white rounded-lg p-6 w-11/12 md:w-3/4 lg:w-1/2 flex flex-col md:flex-row">
+      <img id="modalPlayerImage" src="" alt="Player" class="w-full md:w-1/2 rounded mb-4 md:mb-0 md:mr-6 object-cover">
+      <div class="flex-1">
+        <h2 id="modalPlayerName" class="text-xl font-bold mb-2"></h2>
+        <p id="modalPlayerNickname" class="mb-1"></p>
+        <p id="modalPlayerJersey" class="mb-1"></p>
+        <p id="modalPlayerPosition" class="mb-1"></p>
+        <p id="modalPlayerAppearances" class="mb-1"></p>
+        <p id="modalPlayerGoals" class="mb-1"></p>
+        <p id="modalPlayerAssists" class="mb-1"></p>
+        <p id="modalPlayerCleanSheets" class="mb-1 text-green-600 font-semibold"></p>
+        <div class="flex justify-between mt-4">
+          <button onclick="navigatePlayer(-1)" class="bg-gray-300 px-3 py-1 rounded">Previous</button>
+          <button onclick="closeModal()" class="bg-red-500 text-white px-3 py-1 rounded">Close</button>
+          <button onclick="navigatePlayer(1)" class="bg-gray-300 px-3 py-1 rounded">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   const allPlayers = [
+    {
+        name: "Francis Muriithi",
+        nickname: "Franko",
+        image: "images/Franko (2).png",
+        jersey: 1,
+        position: "Goalkeeper",
+        appearances: 18,
+        goals: 0,
+        assists: 0,
+        cleanSheets: 7
+    },
+    {
+        name: "Jefferson Mutembei",
+        nickname: "Jeff",
+        image: "images/Jefferson.png",
+        jersey: 4,
+        position: "Defender",
+        appearances: 16,
+        goals: 1,
+        assists: 2,
+        cleanSheets: 6
+    },
+    {
+        name: "John Mwilu",
+        nickname: "Mwilu",
+        image: "images/Mwilu.png",
+        jersey: 5,
+        position: "Defender",
+        appearances: 17,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 6
+    },
+    {
+        name: "Wainaina Victor",
+        nickname: "Vickyy",
+        image: "images/Vickyy (2).png",
+        jersey: 9,
+        position: "Attack",
+        appearances: 19,
+        goals: 11,
+        assists: 4
+    },
+    {
+        name: "Peter Mwendwa",
+        nickname: "Peter",
+        image: "images/Peter Mwendwa (2).png",
+        jersey: 3,
+        position: "Defender",
+        appearances: 18,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 7
+    },
+    {
+        name: "Michael Mwakolo",
+        nickname: "Mwakolo",
+        image: "images/Mwakolo.png",
+        jersey: 8,
+        position: "Midfielder",
+        appearances: 15,
+        goals: 2,
+        assists: 3
+    },
+    {
+        name: "Dylan Denousse",
+        nickname: "Op",
+        image: "images/Op.png",
+        jersey: 6,
+        position: "Midfielder",
+        appearances: 14,
+        goals: 1,
+        assists: 2
+    },
+    {
+        name: "Sammy Ribui",
+        nickname: "Ribui",
+        image: "images/Ribui.png",
+        jersey: 2,
+        position: "Defender",
+        appearances: 17,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 6
+    },
+    {
+        name: "Ezekiel King'ori",
+        nickname: "Zekie",
+        image: "images/Ezekiel.png",
+        jersey: 12,
+        position: "Defender",
+        appearances: 16,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 5
+    },
+    {
+        name: "Dalmas Muthama",
+        nickname: "Dalmas",
+        image: "images/Dalmas (2).png",
+        jersey: 13,
+        position: "Defender",
+        appearances: 15,
+        goals: 1,
+        assists: 0,
+        cleanSheets: 4
+    },
+    {
+        name: "Jeff Gitau",
+        nickname: "Hazard",
+        image: "images/Hazard.png",
+        jersey: 10,
+        position: "Midfielder",
+        appearances: 16,
+        goals: 3,
+        assists: 5
+    },
+    {
+        name: "Matthias Kavuttih",
+        nickname: "Mathiass",
+        image: "images/Mathiass.png",
+        jersey: 11,
+        position: "Midfielder",
+        appearances: 13,
+        goals: 2,
+        assists: 3
+    },
+    {
+        name: "Dennis Kavutti",
+        nickname: "Mzazi",
+        image: "images/Mzazi.png",
+        jersey: 18,
+        position: "Attack",
+        appearances: 17,
+        goals: 5,
+        assists: 2
+    },
+    {
+        name: "Daniel Mwikya",
+        nickname: "Dante",
+        image: "images/Dante.png",
+        jersey: 14,
+        position: "Defender",
+        appearances: 13,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 4
+    },
+    {
+        name: "Dennis Kavita",
+        nickname: "Capello",
+        image: "images/Capello.png",
+        jersey: 17,
+        position: "Midfielder",
+        appearances: 12,
+        goals: 2,
+        assists: 1
+    },
+    {
+        name: "Samuel Karanja",
+        nickname: "Sammy",
+        image: "images/Sammy Gk (2).png",
+        jersey: 22,
+        position: "Goalkeeper",
+        appearances: 12,
+        goals: 0,
+        assists: 0,
+        cleanSheets: 5
+    },
+    {
+        name: "Nelson Mutuma",
+        nickname: "Zola",
+        image: "images/Zola.png",
+        jersey: 19,
+        position: "Attack",
+        appearances: 14,
+        goals: 6,
+        assists: 2
+    },
+    {
+        name: "Kennedy Nduati",
+        nickname: "Kenny",
+        image: "images/Kenny.png",
+        jersey: 21,
+        position: "Attack",
+        appearances: 15,
+        goals: 4,
+        assists: 3
+    },
+    {
+        name: "Geoffrey Ngetich",
+        nickname: "Geoffrey",
+        image: "images/Geofrey.png",
+        jersey: 23,
+        position: "Attack",
+        appearances: 10,
+        goals: 3,
+        assists: 1
+    },
+    {
+        name: "Kevin Mwaura",
+        nickname: "Kev",
+        image: "images/Kevin Mwaura (2).png",
+        jersey: 16,
+        position: "Defender",
+        appearances: 13,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 4
+    },
+    {
+        name: "Alex Mbuthia",
+        nickname: "Alex",
+        image: "images/Alex Mbuthia (2).png",
+        jersey: 15,
+        position: "Midfielder",
+        appearances: 12,
+        goals: 1,
+        assists: 2
+    },
+    {
+        name: "Ahadi Kamau",
+        nickname: "Ahadi",
+        image: "images/Ahadi (2).png",
+        jersey: 7,
+        position: "Midfielder",
+        appearances: 11,
+        goals: 2,
+        assists: 1
+    },
+    {
+        name: "Bernard Mburu",
+        nickname: "Ben 10",
+        image: "images/Vicky and ben 10.jpeg",
+        jersey: 20,
+        position: "Defender",
+        appearances: 14,
+        goals: 0,
+        assists: 1,
+        cleanSheets: 4
+    },
+    {
+        name: "Brian Ndung'u",
+        nickname: "Brayoo",
+        image: "images/Brayoo.png",
+        jersey: 24,
+        position: "Midfielder",
+        appearances: 9,
+        goals: 1,
+        assists: 2
+    },
+    {
+        name: "Michael Marite",
+        nickname: "Marite",
+        image: "images/Marite.png",
+        jersey: 25,
+        position: "Attack",
+        appearances: 13,
+        goals: 3,
+        assists: 2
+    },
+    {
+        name: "Pyron Obaga",
+        nickname: "Pyro",
+        image: "images/pyron Obaga (2).png",
+        jersey: 26,
+        position: "Attack",
+        appearances: 12,
+        goals: 4,
+        assists: 2
+    }
+    ];
+
+
+    let filteredPlayers = allPlayers;
+    let searchTerm = '';
+    let currentIndex = 0;
+    let currentPage = 1;
+    const playersPerPage = 8;
+
+    function filterPlayers(position) {
+      filteredPlayers = position === 'All' ? allPlayers : allPlayers.filter(p => p.position === position);
+      currentPage = 1;
+      searchPlayers();
+    }
+
+    function searchPlayers() {
+      searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const searched = filteredPlayers.filter(p => p.name.toLowerCase().includes(searchTerm));
+      renderPlayers(searched);
+    }
+
+    function sortPlayers() {
+      const sortBy = document.getElementById('sortSelect').value;
+      filteredPlayers.sort((a, b) => {
+        if (sortBy === 'name') return a.name.localeCompare(b.name);
+        return b[sortBy] - a[sortBy];
+      });
+      searchPlayers();
+    }
+
+    function renderPlayers(list = filteredPlayers) {
+      const container = document.getElementById('playersContainer');
+      container.innerHTML = '';
+      const start = (currentPage - 1) * playersPerPage;
+      const paginated = list.slice(start, start + playersPerPage);
+      paginated.forEach((player, index) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded shadow hover:shadow-lg transition cursor-pointer';
+        card.innerHTML = `
+          <img src="${player.image}" alt="${player.name}" class="w-full h-48 object-cover rounded-t">
+          <div class="p-4">
+            <h3 class="text-lg font-bold">${player.name}</h3>
+            <p class="text-sm text-gray-600">${player.position}</p>
+          </div>
+        `;
+        card.onclick = () => openModal(start + index);
+        container.appendChild(card);
+      });
+    }
+
+    function openModal(index) {
+      currentIndex = index;
+      const player = filteredPlayers[index];
+      document.getElementById('modalPlayerImage').src = player.image;
+      document.getElementById('modalPlayerName').textContent = `Name: ${player.name}`;
+      document.getElementById('modalPlayerNickname').textContent = `Nickname: ${player.nickname}`;
+      document.getElementById('modalPlayerJersey').textContent = `Jersey Number: ${player.jersey}`;
+      document.getElementById('modalPlayerPosition').textContent = `Position: ${player.position}`;
+      document.getElementById('modalPlayerAppearances').textContent = `Appearances: ${player.appearances}`;
+      document.getElementById('modalPlayerGoals').textContent = `Goals: ${player.goals}`;
+      document.getElementById('modalPlayerAssists').textContent = `Assists: ${player.assists}`;
+      document.getElementById('modalPlayerCleanSheets').textContent = (player.position === 'Defense' || player.position === 'Keeper') ? `Clean Sheets: ${player.cleanSheets}` : '';
+      document.getElementById('playerModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('playerModal').classList.add('hidden');
+    }
+
+    function navigatePlayer(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = filteredPlayers.length - 1;
+      if (currentIndex >= filteredPlayers.length) currentIndex = 0;
+      openModal(currentIndex);
+    }
+
+    function nextPage() {
+      if ((currentPage * playersPerPage) < filteredPlayers.length) {
+        currentPage++;
+        searchPlayers();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        searchPlayers();
+      }
+    }
+
+    // Initial render
+    filterPlayers('All');
+  </script>
+</body>
+
+</html>

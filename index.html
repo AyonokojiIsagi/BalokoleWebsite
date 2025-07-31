@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FC Balokole - One Spirit. One Team. One Goal.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom styles that can't be easily done with Tailwind */
+    .player-card img {
+      transition: transform 0.3s ease;
+    }
+    .player-card:hover img {
+      transform: scale(1.05);
+    }
+    .news-card {
+      transition: box-shadow 0.3s ease;
+    }
+    .news-card:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+  <header class="bg-blue-900 text-white">
+    <div class="hero py-12 text-center">
+      <img src="/IMAGES/logos/Logo 1.jpeg" alt="FC Balokole Logo" class="logo mx-auto w-32 h-32 rounded-full border-4 border-yellow-400">
+      <h1 class="text-4xl font-bold mt-4">FC Balokole</h1>
+      <p class="slogan text-xl mt-2 text-yellow-300">One Spirit. One Team. One Goal.</p>
+    </div>
+    <nav class="bg-blue-800 py-4">
+      <ul class="flex justify-center space-x-8 flex-wrap">
+        <li><a href="#about" class="hover:text-yellow-300 transition">About</a></li>
+        <li><a href="#news" class="hover:text-yellow-300 transition">News</a></li>
+        <li><a href="/view-allplayers.html" class="hover:text-yellow-300 transition">Team</a></li>
+        <li><a href="#schedule" class="hover:text-yellow-300 transition">Fixtures</a></li>
+        <li><a href="#gallery" class="hover:text-yellow-300 transition">Gallery</a></li>
+        <li><a href="#contact" class="hover:text-yellow-300 transition">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Team Stats Section -->
+  <section id="stats" class="py-16 bg-blue-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12 text-blue-900">Season Statistics</h2>
+      <div class="stats-container grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div class="stat-card bg-white p-6 rounded-lg shadow-md text-center border-t-4 border-blue-600">
+          <div class="stat-number text-4xl font-bold text-blue-900">15</div>
+          <div class="stat-label text-gray-600 mt-2">Games Played</div>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-lg shadow-md text-center border-t-4 border-green-500">
+          <div class="stat-number text-4xl font-bold text-blue-900">8</div>
+          <div class="stat-label text-gray-600 mt-2">Wins</div>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-lg shadow-md text-center border-t-4 border-yellow-400">
+          <div class="stat-number text-4xl font-bold text-blue-900">4</div>
+          <div class="stat-label text-gray-600 mt-2">Draws</div>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-lg shadow-md text-center border-t-4 border-red-500">
+          <div class="stat-number text-4xl font-bold text-blue-900">3</div>
+          <div class="stat-label text-gray-600 mt-2">Losses</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-16 container mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-8 text-blue-900 border-b-2 border-yellow-400 pb-2">About FC Balokole</h2>
+    <p class="mb-8 text-lg">Founded in 2018 and proudly based in Kikuyu, Kiambu County, Kenya, FC Balokole has quickly established itself as one of the rising forces in Kenyan football. Our club represents the heart and soul of our community, bringing together players, fans, and supporters under one unified vision encapsulated in our motto: "One Spirit. One Team. One Goal."</p>
+    
+    <h3 class="about-journey-title text-2xl font-bold mt-12 mb-6 text-blue-800">Our Journey</h3>
+    <div class="about-journey-cards grid md:grid-cols-3 gap-6">
+      <div class="about-journey-card bg-white p-6 rounded-lg shadow-md">
+        <h4 class="text-xl font-bold mb-3 text-blue-900">2018 - Foundation</h4>
+        <p class="text-gray-700">FC Balokole was established by passionate football enthusiasts in Kikuyu with a vision to develop local talent and promote football excellence in our community.</p>
+      </div>
+      <div class="about-journey-card bg-white p-6 rounded-lg shadow-md">
+        <h4 class="text-xl font-bold mb-3 text-blue-900">2019-2021 - Building</h4>
+        <p class="text-gray-700">We invested heavily in youth development, establishing training programs and building strong foundations that would serve us for years to come.</p>
+      </div>
+      <div class="about-journey-card bg-white p-6 rounded-lg shadow-md">
+        <h4 class="text-xl font-bold mb-3 text-blue-900">2022-Present</h4>
+        <p class="text-gray-700">Now competing at higher levels with a squad of 25 dedicated players, professional coaching staff, and unwavering community support.</p>
+      </div>
+    </div>
+
+    <div class="about-mission mt-16 bg-blue-50 p-8 rounded-lg">
+      <h3 class="text-2xl font-bold mb-4 text-blue-900">Our Mission</h3>
+      <p class="about-mission-desc text-lg">We are committed to nurturing football talent, inspiring excellence both on and off the pitch, and serving as a beacon of hope and unity in our community. Through discipline, teamwork, and dedication, we strive to develop not just better footballers, but better people.</p>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section id="news" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Latest News</h2>
+      <div class="news-container grid md:grid-cols-3 gap-8">
+        <div class="news-card bg-white rounded-lg overflow-hidden shadow-md">
+          <img src="images/white 2.jpeg" alt="Team Victory" class="w-full h-48 object-cover">
+          <div class="news-content p-6">
+            <div class="news-date text-sm text-gray-500">July 20, 2025</div>
+            <h3 class="news-title text-xl font-bold mt-2 mb-3 text-blue-900">Dominant Victory Against Palla FC at Skyline Boys HighSchool</h3>
+            <p class="news-excerpt text-gray-700">FC Balokole secured a commanding 3-1 victory against Palla FC in what proved to be our best performance of the season so far...</p>
+          </div>
+        </div>
+        <div class="news-card bg-white rounded-lg overflow-hidden shadow-md">
+          <img src="images/squad pt 2.jpeg" alt="New Signings" class="w-full h-48 object-cover">
+          <div class="news-content p-6">
+            <div class="news-date text-sm text-gray-500">July 15, 2025</div>
+            <h3 class="news-title text-xl font-bold mt-2 mb-3 text-blue-900">Youth Academy Produces New Talent</h3>
+            <p class="news-excerpt text-gray-700">Our youth development program continues to bear fruit as we have patnered with Skyline Boys School Team...</p>
+          </div>
+        </div>
+        <div class="news-card bg-white rounded-lg overflow-hidden shadow-md">
+          <img src="images/Natal.jpeg" alt="Community Event" class="w-full h-48 object-cover">
+          <div class="news-content p-6">
+            <div class="news-date text-sm text-gray-500">July 10, 2025</div>
+            <h3 class="news-title text-xl font-bold mt-2 mb-3 text-blue-900">Community Outreach Program Launch</h3>
+            <p class="news-excerpt text-gray-700">FC Balokole launches new community initiative to provide football training and mentorship to underprivileged youth in Kikuyu...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="py-16 bg-blue-900 text-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Our Services</h2>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Service 1 -->
+        <div class="bg-blue-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+          <h3 class="text-xl font-semibold mb-2">Youth Training Programs</h3>
+          <p class="text-sm text-gray-200">
+            We run structured training programs to nurture young talent, build discipline, and enhance football skills from grassroots to elite level.
+          </p>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="bg-blue-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+          <h3 class="text-xl font-semibold mb-2">Community Engagement</h3>
+          <p class="text-sm text-gray-200">
+            Our club actively engages with the local community through outreach events, mentorship initiatives, and football awareness campaigns.
+          </p>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="bg-blue-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+          <h3 class="text-xl font-semibold mb-2">Match Day Events</h3>
+          <p class="text-sm text-gray-200">
+            We organize exciting match day experiences that bring fans together with music, commentary, merchandise, and refreshments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="players" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Team Roster - 2025 Season</h2>
+      <div class="player-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
+        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(0)">
+          <img src="images/Franko (2).png" alt="Francis Muriithi" class="w-full h-48 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+            <div class="text-white text-center">
+              <h3 class="font-bold text-lg">Francis Muriithi</h3>
+              <p class="text-sm">Position: Goalkeeper | Jersey: #1</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(1)">
+          <img src="images/Jefferson.png" alt="Jefferson Mutembei" class="w-full h-48 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+            <div class="text-white text-center">
+              <h3 class="font-bold text-lg">Jefferson Mutembei</h3>
+              <p class="text-sm">Position: Defender | Jersey: #2</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(2)">
+          <img src="images/Mwilu.png" alt="John Mwilu" class="w-full h-48 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+            <div class="text-white text-center">
+              <h3 class="font-bold text-lg">John Mwilu</h3>
+              <p class="text-sm">Position: Defender | Jersey: #3</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(3)">
+          <img src="images/Vickyy (2).png" alt="Wainaina Victor" class="w-full h-48 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+            <div class="text-white text-center">
+              <h3 class="font-bold text-lg">Wainaina Victor</h3>
+              <p class="text-sm">Position: Winger | Jersey: #11</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(4)">
+          <img src="images/Peter Mwendwa (2).png" alt="Peter Mwendwa" class="w-full h-48 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+            <div class="text-white text-center">
+              <h3 class="font-bold text-lg">Peter Mwendwa</h3>
+              <p class="text-sm">Position: Defender | Jersey: #15</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(5)">
+          <img src="images/Mwakolo.png" alt="Michael Mwakolo" class="w-full h-48 object-cover">
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+            <div class="text-white text-center">
+              <h3 class="font-bold text-lg">Michael Mwakolo</h3>
+              <p class="text-sm">Position: Midfielder | Jersey: #8</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="/view-allplayers.html" class="bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">View All Players</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="playerModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-center justify-center">
+    <div class="bg-white w-full max-w-4xl rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row">
+      <div class="w-full md:w-1/2">
+        <img id="modalPlayerImg" src="" alt="Player" class="w-full h-full object-cover">
+      </div>
+      <div class="w-full md:w-1/2 p-6">
+        <h3 id="modalPlayerName" class="text-2xl font-bold text-blue-900 mb-2"></h3>
+        <p id="modalNickname" class="text-gray-700 mb-1"></p>
+        <p id="modalJersey" class="text-gray-700 mb-1"></p>
+        <p id="modalAppearances" class="text-gray-700 mb-1"></p>
+        <p id="modalFoot" class="text-gray-700 mb-1"></p>
+        <p id="modalGoals" class="text-gray-700 mb-1"></p>
+        <p id="modalAssists" class="text-gray-700 mb-1"></p>
+        <p id="modalCleanSheets" class="text-gray-700 mb-1 hidden"></p>
+        <button onclick="closeModal()" class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coaches Section -->
+<section id="coaches" class="py-16 bg-blue-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-blue-900 text-center">Coaching Staff & Management</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+        <div class="relative group cursor-pointer" onclick="openCoachModal('coach1')">
+          <img src="images/coach1.png" alt="Daniel Mwikya" class="rounded-xl w-full h-64 object-cover shadow-md">
+          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
+            <div class="text-center px-4">
+              <h3 class="text-white text-xl font-semibold">Daniel Mwikya</h3>
+              <p class="text-gray-300 text-sm">Head Coach</p>
+            </div>
+          </div>
+          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Head Coach</h4>
+        </div>
+
+        <div class="relative group cursor-pointer" onclick="openCoachModal('coach2')">
+          <img src="images/coach2.png" alt="Dennis Kavuti" class="rounded-xl w-full h-64 object-cover shadow-md">
+          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
+            <div class="text-center px-4">
+              <h3 class="text-white text-xl font-semibold">Dennis Kavuti</h3>
+              <p class="text-gray-300 text-sm">Assistant Coach</p>
+            </div>
+          </div>
+          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Assistant Coach</h4>
+        </div>
+
+        <div class="relative group cursor-pointer" onclick="openCoachModal('coach3')">
+          <img src="images/coach3.png" alt="Jeff" class="rounded-xl w-full h-64 object-cover shadow-md">
+          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
+            <div class="text-center px-4">
+              <h3 class="text-white text-xl font-semibold">Jeff</h3>
+              <p class="text-gray-300 text-sm">Assistant Coach</p>
+            </div>
+          </div>
+          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Assistant Coach</h4>
+        </div>
+
+        <div class="relative group cursor-pointer" onclick="openCoachModal('coach4')">
+          <img src="images/coach4.png" alt="Josephine Flora" class="rounded-xl w-full h-64 object-cover shadow-md">
+          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
+            <div class="text-center px-4">
+              <h3 class="text-white text-xl font-semibold">Josephine Flora</h3>
+              <p class="text-gray-300 text-sm">Team Manager</p>
+            </div>
+          </div>
+          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Team Manager</h4>
+        </div>
+
+        <div class="relative group cursor-pointer" onclick="openCoachModal('coach5')">
+          <img src="images/coach5.png" alt="Francis Murithii" class="rounded-xl w-full h-64 object-cover shadow-md">
+          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
+            <div class="text-center px-4">
+              <h3 class="text-white text-xl font-semibold">Francis Murithii</h3>
+              <p class="text-gray-300 text-sm">Trainer</p>
+            </div>
+          </div>
+          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Trainer</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coach Modal -->
+  <div id="coachModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
+    <div class="bg-white w-11/12 md:max-w-4xl rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">
+      <img id="modalCoachImage" src="" alt="Coach" class="w-full md:w-1/2 object-cover h-64 md:h-auto">
+      <div class="p-6 md:w-1/2">
+        <h3 id="modalCoachName" class="text-2xl font-semibold text-blue-800 mb-2"></h3>
+        <p id="modalCoachRole" class="text-blue-600 font-medium mb-4"></p>
+        <p id="modalCoachDetails" class="text-gray-700 text-sm"></p>
+        <button onclick="closeCoachModal()" class="mt-4 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-900 transition">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="schedule" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-blue-900">2025 Season Fixtures</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200">
+          <thead class="bg-blue-900 text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">Date</th>
+              <th class="py-3 px-4 text-left">Opponent</th>
+              <th class="py-3 px-4 text-left">Venue</th>
+              <th class="py-3 px-4 text-left">Time</th>
+              <th class="py-3 px-4 text-left">Competition</th>
+              <th class="py-3 px-4 text-left">Result</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Aug 3, 2025</td>
+              <td class="py-3 px-4">Combiart FC</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">3:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4 font-bold text-green-600">W 2-1</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Aug 10, 2025</td>
+              <td class="py-3 px-4">Kikuyu Market FC</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">3:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4 font-bold text-green-600">W 3-1</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Aug 17, 2025</td>
+              <td class="py-3 px-4">Riders</td>
+              <td class="py-3 px-4">Away - City Park</td>
+              <td class="py-3 px-4">2:30 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4 font-bold text-yellow-500">D 1-1</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Aug 24, 2025</td>
+              <td class="py-3 px-4">Shamako Juniors</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">4:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Aug 31, 2025</td>
+              <td class="py-3 px-4">Kikuyu Garage</td>
+              <td class="py-3 px-4">Away - Eagles Ground</td>
+              <td class="py-3 px-4">3:30 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Sep 7, 2025</td>
+              <td class="py-3 px-4">Safari Simbaz FC</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">3:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Sep 14, 2025</td>
+              <td class="py-3 px-4">Wailers</td>
+              <td class="py-3 px-4">Away - Riverside Grounds</td>
+              <td class="py-3 px-4">2:00 PM</td>
+              <td class="py-3 px-4">Cup</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Sep 21, 2025</td>
+              <td class="py-3 px-4">Jua Kali</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">4:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Sep 28, 2025</td>
+              <td class="py-3 px-4">Caddisa</td>
+              <td class="py-3 px-4">Away - Nakuru Stadium</td>
+              <td class="py-3 px-4">3:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Oct 5, 2025</td>
+              <td class="py-3 px-4">Bayern</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">3:30 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Oct 12, 2025</td>
+              <td class="py-3 px-4">PUEA</td>
+              <td class="py-3 px-4">Away - Thika Stadium</td>
+              <td class="py-3 px-4">2:30 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-3 px-4">Oct 19, 2025</td>
+              <td class="py-3 px-4">Alpha</td>
+              <td class="py-3 px-4">Home - Kikuyu Stadium</td>
+              <td class="py-3 px-4">4:00 PM</td>
+              <td class="py-3 px-4">League</td>
+              <td class="py-3 px-4">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="mt-12 bg-blue-100 p-8 rounded-lg text-center border-2 border-blue-300">
+        <h3 class="text-2xl font-bold mb-4 text-blue-900">Next Match</h3>
+        <p class="text-xl font-bold mb-2">FC Balokole vs Sportif</p>
+        <p class="mb-2"><strong>Date:</strong> August 24, 2025</p>
+        <p class="mb-2"><strong>Time:</strong> 4:00 PM</p>
+        <p class="mb-4"><strong>Venue:</strong> Kikuyu Stadium (Home)</p>
+        <p class="text-blue-900 font-bold text-lg">Come support the team! 🏆⚽</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Image Gallery</h2>
+
+      <div class="gallery grid grid-cols-2 md:grid-cols-3 gap-4">
+        
+        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
+            onclick="openModal('/IMAGES/TeamGallery/Jersey launch.jpeg', 'Team launching the new Jersey kit')">
+          <img src="/IMAGES/TeamGallery/Jersey launch.jpeg" alt="Team launching the new Jersey kit" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Team Launching the new Jersey kit
+          </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
+            onclick="openModal('/IMAGES/TeamGallery/squad 1.jpeg', 'Players after a match')">
+          <img src="/IMAGES/TeamGallery/squad 1.jpeg" alt="Players after a match" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Players after a match
+          </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
+            onclick="openModal('/IMAGES/TeamGallery/squad pt 3.jpeg', 'Team celebration after victory')">
+          <img src="/IMAGES/TeamGallery/squad pt 3.jpeg" alt="Team celebration after victory" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Team celebration after victory
+          </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
+            onclick="openModal('/IMAGES/TeamGallery/Machakos.jpeg', 'Team training before a match at Machakos')">
+          <img src="/IMAGES/TeamGallery/Machakos.jpeg" alt="Team training before a match at Machakos" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Team training before a match at Machakos
+          </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
+            onclick="openModal('/IMAGES/TeamGallery/squad pt 3.jpeg', 'Team before a friendly game')">
+          <img src="/IMAGES/TeamGallery/banner.jpeg" alt="Team before a friendly game" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Team before a friendly game
+          </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
+            onclick="openModal('/IMAGES/TeamGallery/White 1.jpeg', 'Team at a home match')">
+          <img src="/IMAGES/TeamGallery/White 1.jpeg" alt="Team at a home match" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Team at a home <main></main>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- View More Button -->
+      <div class="mt-10 text-center">
+        <a href="team-gallery.html"
+          class="inline-block bg-blue-900 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+          View More Team Photos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="video" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center text-blue-900">Team Highlights</h2>
+      <div class="max-w-4xl mx-auto">
+        <video controls class="w-full rounded-lg shadow-lg">
+          <source src="team-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-16 bg-blue-900 text-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Contact Us</h2>
+      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-12">
+        <form class="space-y-6">
+          <div>
+            <label for="name" class="block mb-2">Full Name:</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-2 rounded text-gray-800">
+          </div>
+          <div>
+            <label for="email" class="block mb-2">Email Address:</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded text-gray-800">
+          </div>
+          <div>
+            <label for="phone" class="block mb-2">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 rounded text-gray-800">
+          </div>
+          <div>
+            <label for="subject" class="block mb-2">Subject:</label>
+            <input type="text" id="subject" name="subject" required class="w-full px-4 py-2 rounded text-gray-800">
+          </div>
+          <div>
+            <label for="message" class="block mb-2">Message:</label>
+            <textarea id="message" name="message" required placeholder="Tell us how we can help you..." class="w-full px-4 py-2 rounded text-gray-800 h-32"></textarea>
+          </div>
+          <button type="submit" class="bg-yellow-400 text-blue-900 font-bold py-3 px-6 rounded-lg hover:bg-yellow-300 transition">Send Message</button>
+        </form>
+        
+        <div class="bg-blue-800 p-8 rounded-lg">
+          <h3 class="text-2xl font-bold mb-6 text-yellow-300">Get In Touch</h3>
+          <div class="space-y-4">
+            <p><strong class="text-yellow-300">Address:</strong> Kikuyu, Kenya</p>
+            <p><strong class="text-yellow-300">Email:</strong> info@fcbalokole.com</p>
+            <p><strong class="text-yellow-300">Phone:</strong> +254 721 104993</p>
+            <p><strong class="text-yellow-300">Training Times:</strong><br>
+              Tue, Thur, Fri 7:00 PM - 10:00 PM<br>
+              Sat - 2:00 PM</p>
+          </div>
+          <div class="mt-8">
+            <h4 class="text-xl font-bold mb-4 text-yellow-300">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="bg-blue-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600">
+                <span class="sr-only">Facebook</span>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+              <a href="#" class="bg-blue-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600">
+                <span class="sr-only">Twitter</span>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                </svg>
+              </a>
+              <a href="#" class="bg-blue-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600">
+                <span class="sr-only">Instagram</span>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-blue-900 text-white py-8">
+    <div class="container mx-auto px-4">
+      <p class="text-center">&copy; 2025 FC Balokole. All rights reserved. | One Spirit. One Team. One Goal.</p>
+      <p class="text-center mt-4 text-blue-200">Follow us on social media for latest updates and match highlights</p>
+    </div>
+  </footer>
+  <script>
+    const players = [
+      {
+        name: "Francis Muriithi",
+        nickname: "Franko",
+        jersey: "#1",
+        appearances: 20,
+        foot: "Right",
+        goals: 0,
+        assists: 1,
+        cleanSheets: 10,
+        image: "images/Franko (2).png",
+        position: "Goalkeeper"
+      },
+      {
+        name: "Jefferson Mutembei",
+        nickname: "Jeff",
+        jersey: "#2",
+        appearances: 18,
+        foot: "Left",
+        goals: 1,
+        assists: 2,
+        cleanSheets: 8,
+        image: "images/Jefferson.png",
+        position: "Defender"
+      },
+      {
+        name: "John Mwilu",
+        nickname: "Mwilu",
+        jersey: "#3",
+        appearances: 19,
+        foot: "Right",
+        goals: 0,
+        assists: 3,
+        cleanSheets: 7,
+        image: "images/Mwilu.png",
+        position: "Defender"
+      },
+      {
+        name: "Wainaina Victor",
+        nickname: "Vickyy",
+        jersey: "#11",
+        appearances: 16,
+        foot: "Right",
+        goals: 5,
+        assists: 4,
+        image: "images/Vickyy (2).png",
+        position: "Winger"
+      },
+      {
+        name: "Peter Mwendwa",
+        nickname: "Peter",
+        jersey: "#15",
+        appearances: 20,
+        foot: "Right",
+        goals: 0,
+        assists: 1,
+        cleanSheets: 9,
+        image: "images/Peter Mwendwa (2).png",
+        position: "Defender"
+      },
+      {
+        name: "Michael Mwakolo",
+        nickname: "Mwakolo",
+        jersey: "#8",
+        appearances: 22,
+        foot: "Left",
+        goals: 3,
+        assists: 6,
+        image: "images/Mwakolo.png",
+        position: "Midfielder"
+      }
+    ];
+
+    function openModal(index) {
+      const player = players[index];
+      document.getElementById("modalPlayerImg").src = player.image;
+      document.getElementById("modalPlayerName").textContent = player.name;
+      document.getElementById("modalNickname").textContent = `Nickname: ${player.nickname}`;
+      document.getElementById("modalJersey").textContent = `Jersey No: ${player.jersey}`;
+      document.getElementById("modalAppearances").textContent = `Appearances: ${player.appearances}`;
+      document.getElementById("modalFoot").textContent = `Preferred Foot: ${player.foot}`;
+      document.getElementById("modalGoals").textContent = `Goals: ${player.goals}`;
+      document.getElementById("modalAssists").textContent = `Assists: ${player.assists}`;
+      if (player.position === "Goalkeeper" || player.position === "Defender") {
+        document.getElementById("modalCleanSheets").textContent = `Clean Sheets: ${player.cleanSheets}`;
+        document.getElementById("modalCleanSheets").classList.remove("hidden");
+      } else {
+        document.getElementById("modalCleanSheets").classList.add("hidden");
+      }
+      document.getElementById("playerModal").classList.remove("hidden");
+      document.getElementById("playerModal").classList.add("flex");
+    }
+
+    function closeModal() {
+      document.getElementById("playerModal").classList.add("hidden");
+      document.getElementById("playerModal").classList.remove("flex");
+    }
+  </script>
+  <!-- Modal Script -->
+  <script>
+    const coachData = {
+      coach1: {
+        name: "Daniel Mwikya",
+        role: "Head Coach",
+        image: "images/coach1.png",
+        details: "5+ years coaching experience, former player and tactical specialist."
+      },
+      coach2: {
+        name: "Dennis Kavuti",
+        role: "Assistant Coach",
+        image: "images/coach2.png",
+        details: "Youth development specialist, former academy coach."
+      },
+      coach3: {
+        name: "Jeff",
+        role: "Assistant Coach",
+        image: "images/coach3.png",
+        details: "Fitness and conditioning expert with a sports science background."
+      },
+      coach4: {
+        name: "Josephine Flora",
+        role: "Team Manager",
+        image: "images/coach4.png",
+        details: "Handles operations and logistics, and is a player welfare specialist."
+      },
+      coach5: {
+        name: "Francis Murithii",
+        role: "Trainer",
+        image: "images/coach5.png",
+        details: "Certified sports physiotherapist and conditioning expert."
+      }
+    };
+
+    function openCoachModal(id) {
+      const data = coachData[id];
+      if (data) {
+        document.getElementById('modalCoachName').textContent = data.name;
+        document.getElementById('modalCoachRole').textContent = data.role;
+        document.getElementById('modalCoachDetails').textContent = data.details;
+        document.getElementById('modalCoachImage').src = data.image;
+        document.getElementById('coachModal').classList.remove('hidden');
+      }
+    }
+
+    function closeCoachModal() {
+      document.getElementById('coachModal').classList.add('hidden');
+    }
+  </script>
+  <script>
+    function openModal(src, caption) {
+      document.getElementById('imageModal').classList.remove('hidden');
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').innerText = caption;
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+      document.getElementById('modalImg').src = '';
+      document.getElementById('modalCaption').innerText = '';
+    }
+  </script>
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Gallery image click functionality
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', function() {
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 cursor-pointer';
+        
+        const modalImg = document.createElement('img');
+        modalImg.src = this.src;
+        modalImg.className = 'max-w-[90%] max-h-[90%] rounded-lg shadow-xl';
+        
+        modal.appendChild(modalImg);
+        document.body.appendChild(modal);
+        
+        modal.addEventListener('click', () => {
+          document.body.removeChild(modal);
+        });
+      });
+    });
+
+    // Form submission handler
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your message! We\'ll get back to you soon.');
+      this.reset();
+    });
+
+    // Search functionality
+    document.querySelector('footer input[type="search"]').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      if (searchTerm.length > 2) {
+        // Simple search simulation
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+          const text = section.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            section.style.border = '3px solid #1e3c72';
+          } else {
+            section.style.border = 'none';
+          }
+        });
+      } else {
+        document.querySelectorAll('section').forEach(section => {
+          section.style.border = 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

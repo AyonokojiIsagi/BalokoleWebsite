@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <nav class="bg-blue-900 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold">Team Name</a>
+      <div>
+        <a href="index.html#home" class="mr-4 hover:underline">Home</a>
+        <a href="index.html#players" class="mr-4 hover:underline">Players</a>
+        <a href="index.html#gallery" class="hover:underline">Gallery</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Gallery Section -->
+    <section id="gallery" class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Team Gallery</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Image 1 -->
+        <div class="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+             onclick="openModal('/IMAGES/TeamGallery/squad pt 3.jpeg', 'Team celebration after victory')">
+          <img src="/IMAGES/TeamGallery/squad pt 3.jpeg" alt="Team celebration after victory"
+               class="w-full h-64 object-cover">
+          <div class="absolute bottom-0 w-full bg-black bg-opacity-60 text-white text-center py-2 opacity-0 group-hover:opacity-100 transition duration-300">
+            Team celebration after victory
+          </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+             onclick="openModal('/IMAGES/TeamGallery/squad 1.jpeg', 'Players after a match')">
+          <img src="/IMAGES/TeamGallery/squad 1.jpeg" alt="Players after a match"
+               class="w-full h-64 object-cover">
+          <div class="absolute bottom-0 w-full bg-black bg-opacity-60 text-white text-center py-2 opacity-0 group-hover:opacity-100 transition duration-300">
+            Players after a match
+          </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+             onclick="openModal('/IMAGES/TeamGallery/White 1.jpeg', 'Team traveling to away match')">
+          <img src="/IMAGES/TeamGallery/White 1.jpeg" alt="Team traveling to away match"
+               class="w-full h-64 object-cover">
+          <div class="absolute bottom-0 w-full bg-black bg-opacity-60 text-white text-center py-2 opacity-0 group-hover:opacity-100 transition duration-300">
+            Team traveling to away match
+          </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+             onclick="openModal('/IMAGES/TeamGallery/white 2.jpeg', 'Team preparing for the match')">
+          <img src="/IMAGES/TeamGallery/white 2.jpeg" alt="Team preparing for the match"
+               class="w-full h-64 object-cover">
+          <div class="absolute bottom-0 w-full bg-black bg-opacity-60 text-white text-center py-2 opacity-0 group-hover:opacity-100 transition duration-300">
+            Team preparing for the match
+          </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+             onclick="openModal('/IMAGES/TeamGallery/white 3.jpeg', 'Warm-up session underway')">
+          <img src="/IMAGES/TeamGallery/white 3.jpeg" alt="Warm-up session underway"
+               class="w-full h-64 object-cover">
+          <div class="absolute bottom-0 w-full bg-black bg-opacity-60 text-white text-center py-2 opacity-0 group-hover:opacity-100 transition duration-300">
+            Warm-up session underway
+          </div>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="group relative rounded-lg overflow-hidden shadow-lg cursor-pointer"
+             onclick="openModal('/IMAGES/TeamGallery/white 4.jpeg', 'Team strategy discussion')">
+          <img src="/IMAGES/TeamGallery/white 4.jpeg" alt="Team strategy discussion"
+               class="w-full h-64 object-cover">
+          <div class="absolute bottom-0 w-full bg-black bg-opacity-60 text-white text-center py-2 opacity-0 group-hover:opacity-100 transition duration-300">
+            Team strategy discussion
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-lg max-w-2xl w-full mx-4 p-4 relative">
+        <button onclick="closeModal()" class="absolute top-2 right-4 text-gray-600 hover:text-red-600 text-2xl font-bold">&times;</button>
+        <div class="flex flex-col items-center">
+          <img id="modalImg" src="" alt="" class="w-full max-h-[70vh] object-contain rounded-md" />
+          <p id="modalCaption" class="mt-4 text-center text-lg text-gray-700"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Script -->
+  <script>
+    function openModal(src, caption) {
+      document.getElementById('imageModal').classList.remove('hidden');
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').innerText = caption;
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+      document.getElementById('modalImg').src = '';
+      document.getElementById('modalCaption').innerText = '';
+    }
+  </script>
+</body>
+</html>
