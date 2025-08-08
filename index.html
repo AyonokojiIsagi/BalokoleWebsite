@@ -7,17 +7,235 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Custom styles that can't be easily done with Tailwind */
-    .player-card img {
+    .player-card {
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .player-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      overflow: hidden;
+    }
+    
+    .player-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
       transition: transform 0.3s ease;
     }
-    .player-card:hover img {
+    
+    .player-card:hover .player-image {
       transform: scale(1.05);
     }
+    
+    .modal-overlay {
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .modal-content {
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .modal-image-container {
+      position: relative;
+      min-height: 300px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .modal-player-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .stat-item {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1e40af;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    
+    .position-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .position-attack { background-color: #fef3c7; color: #92400e; }
+    .position-midfielder { background-color: #dbeafe; color: #1e40af; }
+    .position-defender { background-color: #dcfce7; color: #166534; }
+    .position-goalkeeper { background-color: #f3e8ff; color: #7c3aed; }
+    
     .news-card {
       transition: box-shadow 0.3s ease;
     }
     .news-card:hover {
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .coach-card {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .coach-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .coach-image-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .coach-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .coach-role-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .coach-head { background-color: #fef3c7; color: #92400e; }
+    .coach-assistant { background-color: #dbeafe; color: #1e40af; }
+    .coach-manager { background-color: #dcfce7; color: #166534; }
+    .coach-trainer { background-color: #f3e8ff; color: #7c3aed; }
+    
+    /* Gallery Styles */
+    .gallery-item {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .category-filter {
+      transition: all 0.3s ease;
+    }
+    
+    .category-filter.active {
+      background-color: #1e40af;
+      color: white;
+    }
+    
+    .modal-overlay {
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .modal-content {
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-image {
+      max-height: 70vh;
+      object-fit: contain;
+    }
+    
+    .modal-nav-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .modal-nav-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .masonry-grid {
+      columns: 1;
+      column-gap: 1rem;
+    }
+    
+    @media (min-width: 640px) {
+      .masonry-grid {
+        columns: 2;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .masonry-grid {
+        columns: 3;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .masonry-grid {
+        columns: 4;
+      }
+    }
+    
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -97,7 +315,7 @@
       <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Latest News</h2>
       <div class="news-container grid md:grid-cols-3 gap-8">
         <div class="news-card bg-white rounded-lg overflow-hidden shadow-md">
-          <img src="images/white 2.jpeg" alt="Team Victory" class="w-full h-48 object-cover">
+          <img src="/IMAGES/TeamGallery/Squad3.jpeg" alt="Team Victory" class="w-full h-48 object-cover">
           <div class="news-content p-6">
             <div class="news-date text-sm text-gray-500">July 20, 2025</div>
             <h3 class="news-title text-xl font-bold mt-2 mb-3 text-blue-900">Dominant Victory Against Palla FC at Skyline Boys HighSchool</h3>
@@ -105,7 +323,7 @@
           </div>
         </div>
         <div class="news-card bg-white rounded-lg overflow-hidden shadow-md">
-          <img src="images/squad pt 2.jpeg" alt="New Signings" class="w-full h-48 object-cover">
+          <img src="/IMAGES/TeamGallery/Jersey launch.jpeg" alt="New Signings" class="w-full h-48 object-cover">
           <div class="news-content p-6">
             <div class="news-date text-sm text-gray-500">July 15, 2025</div>
             <h3 class="news-title text-xl font-bold mt-2 mb-3 text-blue-900">Youth Academy Produces New Talent</h3>
@@ -113,7 +331,7 @@
           </div>
         </div>
         <div class="news-card bg-white rounded-lg overflow-hidden shadow-md">
-          <img src="images/Natal.jpeg" alt="Community Event" class="w-full h-48 object-cover">
+          <img src="/IMAGES/TeamGallery/Natal1.jpeg" alt="Community Event" class="w-full h-48 object-cover">
           <div class="news-content p-6">
             <div class="news-date text-sm text-gray-500">July 10, 2025</div>
             <h3 class="news-title text-xl font-bold mt-2 mb-3 text-blue-900">Community Outreach Program Launch</h3>
@@ -158,63 +376,86 @@
   <section id="players" class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Team Roster - 2025 Season</h2>
-      <div class="player-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6">
-        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(0)">
-          <img src="images/Franko (2).png" alt="Francis Muriithi" class="w-full h-48 object-cover">
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-            <div class="text-white text-center">
-              <h3 class="font-bold text-lg">Francis Muriithi</h3>
-              <p class="text-sm">Position: Goalkeeper | Jersey: #1</p>
+      
+      <!-- First Row - 3 Players -->
+      <div class="player-grid grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="player-card bg-white cursor-pointer" onclick="openPlayerModal(0)">
+          <div class="image-container">
+            <img src="IMAGES/profile/Frankgk1.jpeg" alt="Francis Muriithi" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Francis Muriithi</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge position-goalkeeper">Goalkeeper</span>
+              <span class="text-sm text-gray-500">#1</span>
             </div>
           </div>
         </div>
 
-        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(1)">
-          <img src="images/Jefferson.png" alt="Jefferson Mutembei" class="w-full h-48 object-cover">
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-            <div class="text-white text-center">
-              <h3 class="font-bold text-lg">Jefferson Mutembei</h3>
-              <p class="text-sm">Position: Defender | Jersey: #2</p>
+        <div class="player-card bg-white cursor-pointer" onclick="openPlayerModal(1)">
+          <div class="image-container">
+            <img src="IMAGES/profile/Ken.jpeg" alt="Kennedy Nduati" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Kennedy Nduati</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge position-attack">Attack</span>
+              <span class="text-sm text-gray-500">#7</span>
             </div>
           </div>
         </div>
 
-        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(2)">
-          <img src="images/Mwilu.png" alt="John Mwilu" class="w-full h-48 object-cover">
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-            <div class="text-white text-center">
-              <h3 class="font-bold text-lg">John Mwilu</h3>
-              <p class="text-sm">Position: Defender | Jersey: #3</p>
+        <div class="player-card bg-white cursor-pointer" onclick="openPlayerModal(2)">
+          <div class="image-container">
+            <img src="IMAGES/profile/Mwilu.jpeg" alt="John Mwilu" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">John Mwilu</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge position-defender">Defender</span>
+              <span class="text-sm text-gray-500">#5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row - 3 Players -->
+      <div class="player-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="player-card bg-white cursor-pointer" onclick="openPlayerModal(3)">
+          <div class="image-container">
+            <img src="IMAGES/profile/DMwikya.jpeg" alt="Daniel Mwikya" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Daniel Mwikya</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge position-defender">Defender</span>
+              <span class="text-sm text-gray-500">#14</span>
             </div>
           </div>
         </div>
 
-        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(3)">
-          <img src="images/Vickyy (2).png" alt="Wainaina Victor" class="w-full h-48 object-cover">
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-            <div class="text-white text-center">
-              <h3 class="font-bold text-lg">Wainaina Victor</h3>
-              <p class="text-sm">Position: Winger | Jersey: #11</p>
+        <div class="player-card bg-white cursor-pointer" onclick="openPlayerModal(4)">
+          <div class="image-container">
+            <img src="IMAGES/profile/Capello.jpeg" alt="Dennis Kavita" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Dennis Kavita</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge position-midfielder">Midfielder</span>
+              <span class="text-sm text-gray-500">#17</span>
             </div>
           </div>
         </div>
 
-        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(4)">
-          <img src="images/Peter Mwendwa (2).png" alt="Peter Mwendwa" class="w-full h-48 object-cover">
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-            <div class="text-white text-center">
-              <h3 class="font-bold text-lg">Peter Mwendwa</h3>
-              <p class="text-sm">Position: Defender | Jersey: #15</p>
-            </div>
+        <div class="player-card bg-white cursor-pointer" onclick="openPlayerModal(5)">
+          <div class="image-container">
+            <img src="IMAGES/profile/Beast1.jpeg" alt="Ezekiel King'ori" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
           </div>
-        </div>
-
-        <div class="player-card relative group bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 cursor-pointer" onclick="openModal(5)">
-          <img src="images/Mwakolo.png" alt="Michael Mwakolo" class="w-full h-48 object-cover">
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-            <div class="text-white text-center">
-              <h3 class="font-bold text-lg">Michael Mwakolo</h3>
-              <p class="text-sm">Position: Midfielder | Jersey: #8</p>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Ezekiel King'ori</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge position-defender">Defender</span>
+              <span class="text-sm text-gray-500">#12</span>
             </div>
           </div>
         </div>
@@ -227,98 +468,268 @@
   </section>
 
   <!-- Modal -->
-  <div id="playerModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-center justify-center">
-    <div class="bg-white w-full max-w-4xl rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row">
-      <div class="w-full md:w-1/2">
-        <img id="modalPlayerImg" src="" alt="Player" class="w-full h-full object-cover">
+  <div id="playerModal" class="fixed inset-0 flex items-center justify-center modal-overlay hidden z-50 p-4">
+    <div class="modal-content bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Image Section -->
+        <div class="lg:w-1/2">
+          <div class="modal-image-container">
+            <img id="modalPlayerImg" src="" alt="Player" class="modal-player-image">
+          </div>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="lg:w-1/2 p-6 lg:p-8">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h2 id="modalPlayerName" class="text-2xl font-bold text-gray-900 mb-2"></h2>
+              <p id="modalNickname" class="text-lg text-gray-600 mb-1"></p>
+              <div class="flex items-center gap-3 mb-4">
+                <span id="modalJersey" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold"></span>
+                <span id="modalPosition" class="position-badge"></span>
+              </div>
+            </div>
+            <button onclick="closePlayerModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+          </div>
+          
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div id="modalAppearances" class="stat-value"></div>
+              <div class="stat-label">Appearances</div>
+            </div>
+            <div class="stat-item">
+              <div id="modalGoals" class="stat-value"></div>
+              <div class="stat-label">Goals</div>
+            </div>
+            <div class="stat-item">
+              <div id="modalAssists" class="stat-value"></div>
+              <div class="stat-label">Assists</div>
+            </div>
+            <div id="cleanSheetsContainer" class="stat-item hidden">
+              <div id="modalCleanSheets" class="stat-value"></div>
+              <div class="stat-label">Clean Sheets</div>
+            </div>
+          </div>
+          
+          <!-- Additional Info -->
+          <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+            <p id="modalFoot" class="text-gray-700"></p>
+          </div>
+        </div>
       </div>
-      <div class="w-full md:w-1/2 p-6">
-        <h3 id="modalPlayerName" class="text-2xl font-bold text-blue-900 mb-2"></h3>
-        <p id="modalNickname" class="text-gray-700 mb-1"></p>
-        <p id="modalJersey" class="text-gray-700 mb-1"></p>
-        <p id="modalAppearances" class="text-gray-700 mb-1"></p>
-        <p id="modalFoot" class="text-gray-700 mb-1"></p>
-        <p id="modalGoals" class="text-gray-700 mb-1"></p>
-        <p id="modalAssists" class="text-gray-700 mb-1"></p>
-        <p id="modalCleanSheets" class="text-gray-700 mb-1 hidden"></p>
-        <button onclick="closeModal()" class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Close</button>
+    </div>
+  </div>
+
+  <!-- Enhanced Gallery Modal -->
+  <div id="imageModal" class="fixed inset-0 modal-overlay flex items-center justify-center z-50 hidden p-4">
+    <div class="modal-content bg-white rounded-lg max-w-6xl w-full mx-4 relative">
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-600 hover:text-red-600 text-3xl font-bold z-10 modal-nav-btn w-10 h-10 rounded-full flex items-center justify-center">&times;</button>
+      
+      <!-- Navigation Arrows -->
+      <button onclick="previousImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold modal-nav-btn w-12 h-12 rounded-full flex items-center justify-center bg-black bg-opacity-50 hover:bg-opacity-70">
+        ‹
+      </button>
+      <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold modal-nav-btn w-12 h-12 rounded-full flex items-center justify-center bg-black bg-opacity-50 hover:bg-opacity-70">
+        ›
+      </button>
+
+      <!-- Modal Content -->
+      <div class="flex flex-col lg:flex-row">
+        <!-- Image Section -->
+        <div class="lg:w-2/3 p-6">
+          <img id="modalImg" src="" alt="" class="modal-image w-full rounded-lg" />
+        </div>
+        
+        <!-- Info Section -->
+        <div class="lg:w-1/3 p-6 bg-gray-50">
+          <div class="mb-4">
+            <span id="modalCategory" class="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2"></span>
+            <h3 id="modalTitle" class="text-xl font-bold text-gray-900 mb-2"></h3>
+            <p id="modalCaption" class="text-gray-600 mb-4"></p>
+            <p id="modalDate" class="text-sm text-gray-500"></p>
+          </div>
+          
+          <!-- Image Counter -->
+          <div class="text-center text-sm text-gray-500 mb-4">
+            <span id="imageCounter"></span>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex gap-2">
+            <button onclick="downloadImage()" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              📥 Download
+            </button>
+            <button onclick="toggleFullscreen()" class="flex-1 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+              🔍 Fullscreen
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Coaches Section -->
-<section id="coaches" class="py-16 bg-blue-50">
+  <section id="coaches" class="py-16 bg-blue-50">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-8 text-blue-900 text-center">Coaching Staff & Management</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <h2 class="text-3xl font-bold mb-12 text-blue-900 text-center">Coaching Staff & Management</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <div class="relative group cursor-pointer" onclick="openCoachModal('coach1')">
-          <img src="images/coach1.png" alt="Daniel Mwikya" class="rounded-xl w-full h-64 object-cover shadow-md">
-          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-            <div class="text-center px-4">
-              <h3 class="text-white text-xl font-semibold">Daniel Mwikya</h3>
-              <p class="text-gray-300 text-sm">Head Coach</p>
+        <!-- Head Coach -->
+        <div class="coach-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl" onclick="openCoachModal('coach1')">
+          <div class="coach-image-container">
+            <img src="IMAGES/Coaching/DMwikya.jpeg" alt="Daniel Mwikya" class="coach-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41NjkgMTMwIDgwQzEzMCA2My40MzEgMTE2LjU2OSA1MCAxMDAgNTBDODMuNDMxIDUwIDcwIDYzLjQzMSA3MCA4MEM3MCA5Ni41NjkgODMuNDMxIDExMCAxMDAgMTEwWiIgZmlsbD0iI0M3QzVEMyIvPgo8cGF0aCBkPSJNMTYwIDE3MEMxNjAgMTU2LjU2OSAxNDYuNTY5IDE0MyAxMzMgMTQzSDY3QzUzLjQzMSAxNDMgNDAgMTU2LjU2OSA0MCAxNzBDNDAgMTgzLjQzMSA1My40MzEgMTk3IDY3IDE5N0gxMzNDMTQ2LjU2OSAxOTcgMTYwIDE4My40MzEgMTYwIDE3MFoiIGZpbGw9IiNDN0M1RDMiLz4KPC9zdmc+'">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="coach-role-badge coach-head">Head Coach</span>
+              <span class="text-sm text-gray-500">#HC</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Daniel Mwikya</h3>
+            <p class="text-gray-600 text-sm mb-4">Tactical specialist with 5+ years of coaching experience</p>
+            <div class="flex items-center text-sm text-gray-500">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+              </svg>
+              <span>5+ Years Experience</span>
             </div>
           </div>
-          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Head Coach</h4>
         </div>
 
-        <div class="relative group cursor-pointer" onclick="openCoachModal('coach2')">
-          <img src="images/coach2.png" alt="Dennis Kavuti" class="rounded-xl w-full h-64 object-cover shadow-md">
-          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-            <div class="text-center px-4">
-              <h3 class="text-white text-xl font-semibold">Dennis Kavuti</h3>
-              <p class="text-gray-300 text-sm">Assistant Coach</p>
+        <!-- Assistant Coach 1 -->
+        <div class="coach-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl" onclick="openCoachModal('coach2')">
+          <div class="coach-image-container">
+            <img src="IMAGES/Coaching/Capello.jpeg" alt="Dennis Kavuti" class="coach-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41NjkgMTMwIDgwQzEzMCA2My40MzEgMTE2LjU2OSA1MCAxMDAgNTBDODMuNDMxIDUwIDcwIDYzLjQzMSA3MCA4MEM3MCA5Ni41NjkgODMuNDMxIDExMCAxMDAgMTEwWiIgZmlsbD0iI0M3QzVEMyIvPgo8cGF0aCBkPSJNMTYwIDE3MEMxNjAgMTU2LjU2OSAxNDYuNTY5IDE0MyAxMzMgMTQzSDY3QzUzLjQzMSAxNDMgNDAgMTU2LjU2OSA0MCAxNzBDNDAgMTgzLjQzMSA1My40MzEgMTk3IDY3IDE5N0gxMzNDMTQ2LjU2OSAxOTcgMTYwIDE4My40MzEgMTYwIDE3MFoiIGZpbGw9IiNDN0M1RDMiLz4KPC9zdmc+'">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="coach-role-badge coach-assistant">Assistant Coach</span>
+              <span class="text-sm text-gray-500">#AC1</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Dennis Kavuti</h3>
+            <p class="text-gray-600 text-sm mb-4">Youth development specialist and academy coach</p>
+            <div class="flex items-center text-sm text-gray-500">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
+              </svg>
+              <span>Youth Development</span>
             </div>
           </div>
-          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Assistant Coach</h4>
         </div>
 
-        <div class="relative group cursor-pointer" onclick="openCoachModal('coach3')">
-          <img src="images/coach3.png" alt="Jeff" class="rounded-xl w-full h-64 object-cover shadow-md">
-          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-            <div class="text-center px-4">
-              <h3 class="text-white text-xl font-semibold">Jeff</h3>
-              <p class="text-gray-300 text-sm">Assistant Coach</p>
+        <!-- Assistant Coach 2 -->
+        <div class="coach-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl" onclick="openCoachModal('coach3')">
+          <div class="coach-image-container">
+            <img src="IMAGES/Coaching/Hazard.jpeg" alt="Jeff" class="coach-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41NjkgMTMwIDgwQzEzMCA2My40MzEgMTE2LjU2OSA1MCAxMDAgNTBDODMuNDMxIDUwIDcwIDYzLjQzMSA3MCA4MEM3MCA5Ni41NjkgODMuNDMxIDExMCAxMDAgMTEwWiIgZmlsbD0iI0M3QzVEMyIvPgo8cGF0aCBkPSJNMTYwIDE3MEMxNjAgMTU2LjU2OSAxNDYuNTY5IDE0MyAxMzMgMTQzSDY3QzUzLjQzMSAxNDMgNDAgMTU2LjU2OSA0MCAxNzBDNDAgMTgzLjQzMSA1My40MzEgMTk3IDY3IDE5N0gxMzNDMTQ2LjU2OSAxOTcgMTYwIDE4My40MzEgMTYwIDE3MFoiIGZpbGw9IiNDN0M1RDMiLz4KPC9zdmc+'">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="coach-role-badge coach-assistant">Assistant Coach</span>
+              <span class="text-sm text-gray-500">#AC2</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Jeff</h3>
+            <p class="text-gray-600 text-sm mb-4">Fitness and conditioning expert with sports science background</p>
+            <div class="flex items-center text-sm text-gray-500">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Fitness & Conditioning</span>
             </div>
           </div>
-          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Assistant Coach</h4>
         </div>
 
-        <div class="relative group cursor-pointer" onclick="openCoachModal('coach4')">
-          <img src="images/coach4.png" alt="Josephine Flora" class="rounded-xl w-full h-64 object-cover shadow-md">
-          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-            <div class="text-center px-4">
-              <h3 class="text-white text-xl font-semibold">Josephine Flora</h3>
-              <p class="text-gray-300 text-sm">Team Manager</p>
+        <!-- Team Manager -->
+        <div class="coach-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl" onclick="openCoachModal('coach4')">
+          <div class="coach-image-container">
+            <img src="IMAGES/Coaching/Flora.jpeg" alt="Josephine Flora" class="coach-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41NjkgMTMwIDgwQzEzMCA2My40MzEgMTE2LjU2OSA1MCAxMDAgNTBDODMuNDMxIDUwIDcwIDYzLjQzMSA3MCA4MEM3MCA5Ni41NjkgODMuNDMxIDExMCAxMDAgMTEwWiIgZmlsbD0iI0M3QzVEMyIvPgo8cGF0aCBkPSJNMTYwIDE3MEMxNjAgMTU2LjU2OSAxNDYuNTY5IDE0MyAxMzMgMTQzSDY3QzUzLjQzMSAxNDMgNDAgMTU2LjU2OSA0MCAxNzBDNDAgMTgzLjQzMSA1My40MzEgMTk3IDY3IDE5N0gxMzNDMTQ2LjU2OSAxOTcgMTYwIDE4My40MzEgMTYwIDE3MFoiIGZpbGw9IiNDN0M1RDMiLz4KPC9zdmc+'">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="coach-role-badge coach-manager">Team Manager</span>
+              <span class="text-sm text-gray-500">#TM</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Josephine Flora</h3>
+            <p class="text-gray-600 text-sm mb-4">Operations and logistics specialist with player welfare focus</p>
+            <div class="flex items-center text-sm text-gray-500">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Operations & Welfare</span>
             </div>
           </div>
-          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Team Manager</h4>
         </div>
 
-        <div class="relative group cursor-pointer" onclick="openCoachModal('coach5')">
-          <img src="images/coach5.png" alt="Francis Murithii" class="rounded-xl w-full h-64 object-cover shadow-md">
-          <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-            <div class="text-center px-4">
-              <h3 class="text-white text-xl font-semibold">Francis Murithii</h3>
-              <p class="text-gray-300 text-sm">Trainer</p>
+        <!-- Trainer -->
+        <div class="coach-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl" onclick="openCoachModal('coach5')">
+          <div class="coach-image-container">
+            <img src="IMAGES/Coaching/Frankgk1.jpeg" alt="Francis Murithii" class="coach-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41NjkgMTMwIDgwQzEzMCA2My40MzEgMTE2LjU2OSA1MCAxMDAgNTBDODMuNDMxIDUwIDcwIDYzLjQzMSA3MCA4MEM3MCA5Ni41NjkgODMuNDMxIDExMCAxMDAgMTEwWiIgZmlsbD0iI0M3QzVEMyIvPgo8cGF0aCBkPSJNMTYwIDE3MEMxNjAgMTU2LjU2OSAxNDYuNTY5IDE0MyAxMzMgMTQzSDY3QzUzLjQzMSAxNDMgNDAgMTU2LjU2OSA0MCAxNzBDNDAgMTgzLjQzMSA1My40MzEgMTk3IDY3IDE5N0gxMzNDMTQ2LjU2OSAxOTcgMTYwIDE4My40MzEgMTYwIDE3MFoiIGZpbGw9IiNDN0M1RDMiLz4KPC9zdmc+'">
+          </div>
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="coach-role-badge coach-trainer">Trainer</span>
+              <span class="text-sm text-gray-500">#TR</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Francis Murithii</h3>
+            <p class="text-gray-600 text-sm mb-4">Certified sports physiotherapist and conditioning expert</p>
+            <div class="flex items-center text-sm text-gray-500">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Physiotherapy</span>
             </div>
           </div>
-          <h4 class="text-center mt-2 text-lg font-medium text-blue-900">Trainer</h4>
         </div>
+
       </div>
     </div>
   </section>
 
   <!-- Coach Modal -->
-  <div id="coachModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
-    <div class="bg-white w-11/12 md:max-w-4xl rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">
-      <img id="modalCoachImage" src="" alt="Coach" class="w-full md:w-1/2 object-cover h-64 md:h-auto">
-      <div class="p-6 md:w-1/2">
-        <h3 id="modalCoachName" class="text-2xl font-semibold text-blue-800 mb-2"></h3>
-        <p id="modalCoachRole" class="text-blue-600 font-medium mb-4"></p>
-        <p id="modalCoachDetails" class="text-gray-700 text-sm"></p>
-        <button onclick="closeCoachModal()" class="mt-4 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-900 transition">Close</button>
+  <div id="coachModal" class="fixed inset-0 flex items-center justify-center modal-overlay hidden z-50 p-4">
+    <div class="modal-content bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Image Section -->
+        <div class="lg:w-1/2">
+          <div class="modal-image-container">
+            <img id="modalCoachImage" src="" alt="Coach" class="modal-player-image">
+          </div>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="lg:w-1/2 p-6 lg:p-8">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h2 id="modalCoachName" class="text-2xl font-bold text-gray-900 mb-2"></h2>
+              <div class="flex items-center gap-3 mb-4">
+                <span id="modalCoachRole" class="coach-role-badge"></span>
+                <span id="modalCoachId" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold text-sm"></span>
+              </div>
+            </div>
+            <button onclick="closeCoachModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+          </div>
+          
+          <!-- Coach Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div id="modalCoachExperience" class="stat-value"></div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div id="modalCoachSpecialty" class="stat-value"></div>
+              <div class="stat-label">Specialty</div>
+            </div>
+            <div class="stat-item">
+              <div id="modalCoachCertification" class="stat-value"></div>
+              <div class="stat-label">Certification</div>
+            </div>
+          </div>
+          
+          <!-- Additional Info -->
+          <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+            <p id="modalCoachDetails" class="text-gray-700"></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -452,58 +863,152 @@
 
   <section id="gallery" class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-12 text-center text-blue-900">Image Gallery</h2>
+      <h2 class="text-3xl font-bold mb-8 text-center text-blue-900">Team Gallery</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Explore our journey through matches, training sessions, events, and team moments that define FC Balokole's spirit and passion for football.</p>
 
-      <div class="gallery grid grid-cols-2 md:grid-cols-3 gap-4">
-        
-        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onclick="openModal('/IMAGES/TeamGallery/Jersey launch.jpeg', 'Team launching the new Jersey kit')">
-          <img src="/IMAGES/TeamGallery/Jersey launch.jpeg" alt="Team launching the new Jersey kit" class="w-full h-48 object-cover">
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Team Launching the new Jersey kit
+      <!-- Category Filters -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <button class="category-filter active px-6 py-3 rounded-full bg-blue-100 text-blue-800 font-semibold hover:bg-blue-200 transition-all duration-300" data-category="all">
+          All Photos
+        </button>
+        <button class="category-filter px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-all duration-300" data-category="match">
+          🏆 Matches
+        </button>
+        <button class="category-filter px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-all duration-300" data-category="training">
+          ⚽ Training
+        </button>
+        <button class="category-filter px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-all duration-300" data-category="events">
+          🎉 Events
+        </button>
+        <button class="category-filter px-6 py-3 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-all duration-300" data-category="team">
+          👥 Team Photos
+        </button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- Row 1: 4 Images -->
+        <div class="gallery-item" data-category="match">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/Team practice before a game.jpeg" alt="Pre-Game Practice" class="w-full h-48 object-cover" onclick="openModal(0)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">Match</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Pre-Game Practice</h3>
+              <p class="text-gray-600 text-sm">Team practicing before an important match</p>
+            </div>
           </div>
         </div>
 
-        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onclick="openModal('/IMAGES/TeamGallery/squad 1.jpeg', 'Players after a match')">
-          <img src="/IMAGES/TeamGallery/squad 1.jpeg" alt="Players after a match" class="w-full h-48 object-cover">
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Players after a match
+        <div class="gallery-item" data-category="match">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/celebration photo.jpeg" alt="Victory Celebration" class="w-full h-48 object-cover" onclick="openModal(1)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">Match</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Victory Celebration</h3>
+              <p class="text-gray-600 text-sm">Team celebrating after a successful match</p>
+            </div>
           </div>
         </div>
 
-        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onclick="openModal('/IMAGES/TeamGallery/squad pt 3.jpeg', 'Team celebration after victory')">
-          <img src="/IMAGES/TeamGallery/squad pt 3.jpeg" alt="Team celebration after victory" class="w-full h-48 object-cover">
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Team celebration after victory
+        <div class="gallery-item" data-category="training">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/Machakos.jpeg" alt="Machakos Training" class="w-full h-48 object-cover" onclick="openModal(2)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">Training</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Machakos Training</h3>
+              <p class="text-gray-600 text-sm">Training session in Machakos</p>
+            </div>
           </div>
         </div>
 
-        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onclick="openModal('/IMAGES/TeamGallery/Machakos.jpeg', 'Team training before a match at Machakos')">
-          <img src="/IMAGES/TeamGallery/Machakos.jpeg" alt="Team training before a match at Machakos" class="w-full h-48 object-cover">
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Team training before a match at Machakos
+        <div class="gallery-item" data-category="training">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/Night training.jpeg" alt="Night Training Session" class="w-full h-48 object-cover" onclick="openModal(3)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">Training</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Night Training Session</h3>
+              <p class="text-gray-600 text-sm">Team training under the lights</p>
+            </div>
           </div>
         </div>
 
-        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onclick="openModal('/IMAGES/TeamGallery/squad pt 3.jpeg', 'Team before a friendly game')">
-          <img src="/IMAGES/TeamGallery/banner.jpeg" alt="Team before a friendly game" class="w-full h-48 object-cover">
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Team before a friendly game
+        <!-- Row 2: 4 Images -->
+        <div class="gallery-item" data-category="events">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/Jersey launch.jpeg" alt="Jersey Launch Event" class="w-full h-48 object-cover" onclick="openModal(4)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">Events</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Jersey Launch Event</h3>
+              <p class="text-gray-600 text-sm">Official team jersey launch ceremony</p>
+            </div>
           </div>
         </div>
 
-        <div class="group relative overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 transform hover:scale-105"
-            onclick="openModal('/IMAGES/TeamGallery/White 1.jpeg', 'Team at a home match')">
-          <img src="/IMAGES/TeamGallery/White 1.jpeg" alt="Team at a home match" class="w-full h-48 object-cover">
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-sm text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Team at a home <main></main>
+        <div class="gallery-item" data-category="events">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/Team launching the new kit.jpeg" alt="New Kit Launch" class="w-full h-48 object-cover" onclick="openModal(5)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">Events</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">New Kit Launch</h3>
+              <p class="text-gray-600 text-sm">Official launch of the new team kit</p>
+            </div>
           </div>
         </div>
 
+        <div class="gallery-item" data-category="team">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/squad 1.jpeg" alt="Squad Photo 1" class="w-full h-48 object-cover" onclick="openModal(6)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-semibold">Team Photos</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Squad Photo 1</h3>
+              <p class="text-gray-600 text-sm">Squad photo part 1</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="team">
+          <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+            <img src="IMAGES/TeamGallery/Squad.jpeg" alt="Squad Photo 3" class="w-full h-48 object-cover" onclick="openModal(7)">
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-semibold">Team Photos</span>
+                <span class="text-gray-500 text-sm">2025 Season</span>
+              </div>
+              <h3 class="font-semibold text-gray-900 mb-1">Squad Photo 3</h3>
+              <p class="text-gray-600 text-sm">Squad photo part 3</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden text-center py-12">
+        <div class="text-gray-500 text-lg mb-4">No photos found for this category</div>
+        <button onclick="showAllPhotos()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          Show All Photos
+        </button>
       </div>
 
       <!-- View More Button -->
@@ -611,93 +1116,116 @@
         goals: 0,
         assists: 1,
         cleanSheets: 10,
-        image: "images/Franko (2).png",
+        image: "IMAGES/profile/Frankgk1.jpeg",
         position: "Goalkeeper"
       },
       {
-        name: "Jefferson Mutembei",
-        nickname: "Jeff",
-        jersey: "#2",
+        name: "Kennedy Nduati",
+        nickname: "Kenny",
+        jersey: "#7",
         appearances: 18,
         foot: "Left",
-        goals: 1,
-        assists: 2,
-        cleanSheets: 8,
-        image: "images/Jefferson.png",
-        position: "Defender"
+        goals: 4,
+        assists: 3,
+        image: "IMAGES/profile/Ken.jpeg",
+        position: "Attack"
       },
       {
         name: "John Mwilu",
         nickname: "Mwilu",
-        jersey: "#3",
+        jersey: "#5",
         appearances: 19,
         foot: "Right",
         goals: 0,
         assists: 3,
         cleanSheets: 7,
-        image: "images/Mwilu.png",
+        image: "IMAGES/profile/Mwilu.jpeg",
         position: "Defender"
       },
       {
-        name: "Wainaina Victor",
-        nickname: "Vickyy",
-        jersey: "#11",
+        name: "Daniel Mwikya",
+        nickname: "Dante",
+        jersey: "#14",
         appearances: 16,
-        foot: "Right",
-        goals: 5,
-        assists: 4,
-        image: "images/Vickyy (2).png",
-        position: "Winger"
-      },
-      {
-        name: "Peter Mwendwa",
-        nickname: "Peter",
-        jersey: "#15",
-        appearances: 20,
         foot: "Right",
         goals: 0,
         assists: 1,
-        cleanSheets: 9,
-        image: "images/Peter Mwendwa (2).png",
+        cleanSheets: 4,
+        image: "IMAGES/profile/DMwikya.jpeg",
         position: "Defender"
       },
       {
-        name: "Michael Mwakolo",
-        nickname: "Mwakolo",
-        jersey: "#8",
+        name: "Dennis Kavita",
+        nickname: "Capello",
+        jersey: "#17",
+        appearances: 20,
+        foot: "Right",
+        goals: 2,
+        assists: 1,
+        image: "IMAGES/profile/Capello.jpeg",
+        position: "Midfielder"
+      },
+      {
+        name: "Ezekiel King'ori",
+        nickname: "Beast",
+        jersey: "#12",
         appearances: 22,
         foot: "Left",
-        goals: 3,
-        assists: 6,
-        image: "images/Mwakolo.png",
-        position: "Midfielder"
+        goals: 0,
+        assists: 1,
+        cleanSheets: 5,
+        image: "IMAGES/profile/Beast1.jpeg",
+        position: "Defender"
       }
     ];
 
-    function openModal(index) {
+    function getPositionClass(position) {
+      const positionMap = {
+        'Attack': 'position-attack',
+        'Midfielder': 'position-midfielder',
+        'Defender': 'position-defender',
+        'Goalkeeper': 'position-goalkeeper'
+      };
+      return positionMap[position] || 'position-midfielder';
+    }
+
+    function openPlayerModal(index) {
       const player = players[index];
       document.getElementById("modalPlayerImg").src = player.image;
       document.getElementById("modalPlayerName").textContent = player.name;
-      document.getElementById("modalNickname").textContent = `Nickname: ${player.nickname}`;
-      document.getElementById("modalJersey").textContent = `Jersey No: ${player.jersey}`;
-      document.getElementById("modalAppearances").textContent = `Appearances: ${player.appearances}`;
-      document.getElementById("modalFoot").textContent = `Preferred Foot: ${player.foot}`;
-      document.getElementById("modalGoals").textContent = `Goals: ${player.goals}`;
-      document.getElementById("modalAssists").textContent = `Assists: ${player.assists}`;
-      if (player.position === "Goalkeeper" || player.position === "Defender") {
-        document.getElementById("modalCleanSheets").textContent = `Clean Sheets: ${player.cleanSheets}`;
-        document.getElementById("modalCleanSheets").classList.remove("hidden");
+      document.getElementById("modalNickname").textContent = `"${player.nickname}"`;
+      document.getElementById("modalJersey").textContent = player.jersey;
+      
+      const positionElement = document.getElementById("modalPosition");
+      positionElement.textContent = player.position;
+      positionElement.className = `position-badge ${getPositionClass(player.position)}`;
+      
+      document.getElementById("modalAppearances").textContent = player.appearances;
+      document.getElementById("modalGoals").textContent = player.goals;
+      document.getElementById("modalAssists").textContent = player.assists;
+      
+      const cleanSheetsContainer = document.getElementById("cleanSheetsContainer");
+      if (player.cleanSheets !== undefined) {
+        document.getElementById("modalCleanSheets").textContent = player.cleanSheets;
+        cleanSheetsContainer.classList.remove("hidden");
       } else {
-        document.getElementById("modalCleanSheets").classList.add("hidden");
+        cleanSheetsContainer.classList.add("hidden");
       }
+      
+      document.getElementById("modalFoot").textContent = `Preferred Foot: ${player.foot}`;
       document.getElementById("playerModal").classList.remove("hidden");
-      document.getElementById("playerModal").classList.add("flex");
     }
 
-    function closeModal() {
+    function closePlayerModal() {
       document.getElementById("playerModal").classList.add("hidden");
-      document.getElementById("playerModal").classList.remove("flex");
     }
+
+    // Close player modal when clicking outside
+    document.getElementById('playerModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePlayerModal();
+      }
+    });
   </script>
   <!-- Modal Script -->
   <script>
@@ -705,32 +1233,57 @@
       coach1: {
         name: "Daniel Mwikya",
         role: "Head Coach",
-        image: "images/coach1.png",
-        details: "5+ years coaching experience, former player and tactical specialist."
+        roleClass: "coach-head",
+        id: "#HC",
+        image: "IMAGES/Coaching/DMwikya.jpeg",
+        experience: "5+",
+        specialty: "Tactics",
+        certification: "UEFA B",
+        details: "5+ years coaching experience, former player and tactical specialist. Expert in modern football tactics and team strategy development."
       },
       coach2: {
         name: "Dennis Kavuti",
         role: "Assistant Coach",
-        image: "images/coach2.png",
-        details: "Youth development specialist, former academy coach."
+        roleClass: "coach-assistant",
+        id: "#AC1",
+        image: "IMAGES/Coaching/Capello.jpeg",
+        experience: "3+",
+        specialty: "Youth Dev",
+        certification: "CAF C",
+        details: "Youth development specialist, former academy coach. Focuses on player development and skill enhancement."
       },
       coach3: {
         name: "Jeff",
         role: "Assistant Coach",
-        image: "images/coach3.png",
-        details: "Fitness and conditioning expert with a sports science background."
+        roleClass: "coach-assistant",
+        id: "#AC2",
+        image: "IMAGES/Coaching/Hazard.jpeg",
+        experience: "4+",
+        specialty: "Fitness",
+        certification: "Sports Sci",
+        details: "Fitness and conditioning expert with a sports science background. Specializes in physical preparation and injury prevention."
       },
       coach4: {
         name: "Josephine Flora",
         role: "Team Manager",
-        image: "images/coach4.png",
-        details: "Handles operations and logistics, and is a player welfare specialist."
+        roleClass: "coach-manager",
+        id: "#TM",
+        image: "IMAGES/Coaching/Flora.jpeg",
+        experience: "6+",
+        specialty: "Operations",
+        certification: "Management",
+        details: "Handles operations and logistics, and is a player welfare specialist. Ensures smooth team operations and player support."
       },
       coach5: {
         name: "Francis Murithii",
         role: "Trainer",
-        image: "images/coach5.png",
-        details: "Certified sports physiotherapist and conditioning expert."
+        roleClass: "coach-trainer",
+        id: "#TR",
+        image: "IMAGES/Coaching/Frankgk1.jpeg",
+        experience: "7+",
+        specialty: "Physio",
+        certification: "Certified",
+        details: "Certified sports physiotherapist and conditioning expert. Provides medical support and rehabilitation services."
       }
     };
 
@@ -739,6 +1292,11 @@
       if (data) {
         document.getElementById('modalCoachName').textContent = data.name;
         document.getElementById('modalCoachRole').textContent = data.role;
+        document.getElementById('modalCoachRole').className = `coach-role-badge ${data.roleClass}`;
+        document.getElementById('modalCoachId').textContent = data.id;
+        document.getElementById('modalCoachExperience').textContent = data.experience;
+        document.getElementById('modalCoachSpecialty').textContent = data.specialty;
+        document.getElementById('modalCoachCertification').textContent = data.certification;
         document.getElementById('modalCoachDetails').textContent = data.details;
         document.getElementById('modalCoachImage').src = data.image;
         document.getElementById('coachModal').classList.remove('hidden');
@@ -748,19 +1306,179 @@
     function closeCoachModal() {
       document.getElementById('coachModal').classList.add('hidden');
     }
+
+    // Close coach modal when clicking outside
+    document.getElementById('coachModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeCoachModal();
+      }
+    });
   </script>
   <script>
-    function openModal(src, caption) {
+    // Gallery data for the main page (8 images in 4x2 grid)
+    const galleryData = [
+      // Row 1: 4 Images
+      { src: "IMAGES/TeamGallery/Team practice before a game.jpeg", title: "Pre-Game Practice", caption: "Team practicing before an important match", category: "match", date: "2025 Season" },
+      { src: "IMAGES/TeamGallery/celebration photo.jpeg", title: "Victory Celebration", caption: "Team celebrating after a successful match", category: "match", date: "2025 Season" },
+      { src: "IMAGES/TeamGallery/Machakos.jpeg", title: "Machakos Training", caption: "Training session in Machakos", category: "training", date: "2025 Season" },
+      { src: "IMAGES/TeamGallery/Night training.jpeg", title: "Night Training Session", caption: "Team training under the lights", category: "training", date: "2025 Season" },
+      
+      // Row 2: 4 Images
+      { src: "IMAGES/TeamGallery/Jersey launch.jpeg", title: "Jersey Launch Event", caption: "Official team jersey launch ceremony", category: "events", date: "2025 Season" },
+      { src: "IMAGES/TeamGallery/Team launching the new kit.jpeg", title: "New Kit Launch", caption: "Official launch of the new team kit", category: "events", date: "2025 Season" },
+      { src: "IMAGES/TeamGallery/squad 1.jpeg", title: "Squad Photo 1", caption: "Squad photo part 1", category: "team", date: "2025 Season" },
+      { src: "IMAGES/TeamGallery/Squad.jpeg", title: "Squad Photo 3", caption: "Squad photo part 3", category: "team", date: "2025 Season" }
+    ];
+
+    let currentImageIndex = 0;
+    let filteredImages = [...galleryData];
+
+    // Category filtering
+    function filterByCategory(category) {
+      const buttons = document.querySelectorAll('.category-filter');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const items = document.querySelectorAll('.gallery-item');
+      let visibleCount = 0;
+
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'block';
+          item.classList.add('fade-in');
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Update filtered images for modal navigation
+      if (category === 'all') {
+        filteredImages = [...galleryData];
+      } else {
+        filteredImages = galleryData.filter(img => img.category === category);
+      }
+
+      // Show/hide no results message
+      const noResults = document.getElementById('noResults');
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+
+    function showAllPhotos() {
+      filterByCategory('all');
+      document.querySelector('[data-category="all"]').click();
+    }
+
+    // Modal functions
+    function openModal(index) {
+      currentImageIndex = index;
+      updateModalContent();
       document.getElementById('imageModal').classList.remove('hidden');
-      document.getElementById('modalImg').src = src;
-      document.getElementById('modalCaption').innerText = caption;
+      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       document.getElementById('imageModal').classList.add('hidden');
-      document.getElementById('modalImg').src = '';
-      document.getElementById('modalCaption').innerText = '';
+      document.body.style.overflow = 'auto';
     }
+
+    function updateModalContent() {
+      const imageData = filteredImages[currentImageIndex];
+      document.getElementById('modalImg').src = imageData.src;
+      document.getElementById('modalTitle').textContent = imageData.title;
+      document.getElementById('modalCaption').textContent = imageData.caption;
+      document.getElementById('modalDate').textContent = imageData.date;
+      document.getElementById('imageCounter').textContent = `${currentImageIndex + 1} of ${filteredImages.length}`;
+      
+      // Update category badge
+      const categoryBadge = document.getElementById('modalCategory');
+      categoryBadge.textContent = getCategoryDisplayName(imageData.category);
+      categoryBadge.className = `inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2 ${getCategoryBadgeClass(imageData.category)}`;
+    }
+
+    function getCategoryDisplayName(category) {
+      const names = {
+        'match': '🏆 Match',
+        'training': '⚽ Training',
+        'events': '🎉 Events',
+        'team': '👥 Team Photos'
+      };
+      return names[category] || category;
+    }
+
+    function getCategoryBadgeClass(category) {
+      const classes = {
+        'match': 'bg-red-100 text-red-800',
+        'training': 'bg-blue-100 text-blue-800',
+        'events': 'bg-green-100 text-green-800',
+        'team': 'bg-purple-100 text-purple-800'
+      };
+      return classes[category] || 'bg-gray-100 text-gray-800';
+    }
+
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % filteredImages.length;
+      updateModalContent();
+    }
+
+    function previousImage() {
+      currentImageIndex = currentImageIndex === 0 ? filteredImages.length - 1 : currentImageIndex - 1;
+      updateModalContent();
+    }
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.href = filteredImages[currentImageIndex].src;
+      link.download = filteredImages[currentImageIndex].title + '.jpg';
+      link.click();
+    }
+
+    function toggleFullscreen() {
+      const modal = document.getElementById('imageModal');
+      if (!document.fullscreenElement) {
+        modal.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('imageModal').classList.contains('hidden')) return;
+      
+      switch(e.key) {
+        case 'Escape':
+          closeModal();
+          break;
+        case 'ArrowLeft':
+          previousImage();
+          break;
+        case 'ArrowRight':
+          nextImage();
+          break;
+      }
+    });
+
+    // Click outside modal to close
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // Initialize category filters
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.category-filter');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          filterByCategory(this.dataset.category);
+        });
+      });
+    });
   </script>
   <script>
     // Smooth scrolling for navigation links

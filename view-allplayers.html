@@ -6,6 +6,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All Players</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .player-card {
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .player-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      overflow: hidden;
+    }
+    
+    .player-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.3s ease;
+    }
+    
+    .player-card:hover .player-image {
+      transform: scale(1.05);
+    }
+    
+    .modal-overlay {
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .modal-content {
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .modal-image-container {
+      position: relative;
+      min-height: 300px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .modal-player-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .stat-item {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1e40af;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    
+    .position-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .position-attack { background-color: #fef3c7; color: #92400e; }
+    .position-midfielder { background-color: #dbeafe; color: #1e40af; }
+    .position-defender { background-color: #dcfce7; color: #166534; }
+    .position-goalkeeper { background-color: #f3e8ff; color: #7c3aed; }
+  </style>
     <!-- Navbar -->
   <nav class="bg-blue-900 text-white p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
@@ -21,23 +123,23 @@
 
 <body class="bg-gray-100">
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-center mb-8">All Players</h1>
-
-    <div class="flex justify-center mb-4">
-      <input id="searchInput" type="text" placeholder="Search by name..." class="px-4 py-2 border border-gray-300 rounded w-1/2" oninput="searchPlayers()">
-    </div>
+    <h1 class="text-3xl font-bold text-center mb-8 text-blue-900">All Players</h1>
 
     <div class="flex justify-center mb-6">
-      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('All')">All</button>
-      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Attack')">Attack</button>
-      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Midfielder')">Midfielders</button>
-      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Defender')">Defenders</button>
-      <button class="mx-2 px-4 py-2 bg-blue-500 text-white rounded" onclick="filterPlayers('Goalkeeper')">Keepers</button>
+      <input id="searchInput" type="text" placeholder="Search by name..." class="px-6 py-3 border border-gray-300 rounded-lg w-full max-w-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" oninput="searchPlayers()">
     </div>
 
-    <div class="flex justify-end mb-4">
-      <label class="mr-2">Sort By:</label>
-      <select id="sortSelect" onchange="sortPlayers()" class="px-2 py-1 border border-gray-300 rounded">
+    <div class="flex justify-center mb-8 flex-wrap gap-2">
+      <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors" onclick="filterPlayers('All')">All</button>
+      <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors" onclick="filterPlayers('Attack')">Attack</button>
+      <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors" onclick="filterPlayers('Midfielder')">Midfielders</button>
+      <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors" onclick="filterPlayers('Defender')">Defenders</button>
+      <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors" onclick="filterPlayers('Goalkeeper')">Keepers</button>
+    </div>
+
+    <div class="flex justify-end mb-6">
+      <label class="mr-3 text-gray-700 font-medium">Sort By:</label>
+      <select id="sortSelect" onchange="sortPlayers()" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         <option value="name">Name</option>
         <option value="goals">Goals</option>
         <option value="assists">Assists</option>
@@ -45,31 +147,68 @@
       </select>
     </div>
 
-    <div id="playersContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    <div id="playersContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
 
-    <div class="flex justify-center mt-8">
-      <button onclick="prevPage()" class="bg-gray-300 px-4 py-2 rounded mx-1">Previous</button>
-      <button onclick="nextPage()" class="bg-gray-300 px-4 py-2 rounded mx-1">Next</button>
+    <div class="flex justify-center mt-8 gap-4">
+      <button onclick="prevPage()" class="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-lg transition-colors">Previous</button>
+      <button onclick="nextPage()" class="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-lg transition-colors">Next</button>
     </div>
   </div>
 
   <!-- Modal -->
-  <div id="playerModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-    <div class="bg-white rounded-lg p-6 w-11/12 md:w-3/4 lg:w-1/2 flex flex-col md:flex-row">
-      <img id="modalPlayerImage" src="" alt="Player" class="w-full md:w-1/2 rounded mb-4 md:mb-0 md:mr-6 object-cover">
-      <div class="flex-1">
-        <h2 id="modalPlayerName" class="text-xl font-bold mb-2"></h2>
-        <p id="modalPlayerNickname" class="mb-1"></p>
-        <p id="modalPlayerJersey" class="mb-1"></p>
-        <p id="modalPlayerPosition" class="mb-1"></p>
-        <p id="modalPlayerAppearances" class="mb-1"></p>
-        <p id="modalPlayerGoals" class="mb-1"></p>
-        <p id="modalPlayerAssists" class="mb-1"></p>
-        <p id="modalPlayerCleanSheets" class="mb-1 text-green-600 font-semibold"></p>
-        <div class="flex justify-between mt-4">
-          <button onclick="navigatePlayer(-1)" class="bg-gray-300 px-3 py-1 rounded">Previous</button>
-          <button onclick="closeModal()" class="bg-red-500 text-white px-3 py-1 rounded">Close</button>
-          <button onclick="navigatePlayer(1)" class="bg-gray-300 px-3 py-1 rounded">Next</button>
+  <div id="playerModal" class="fixed inset-0 flex items-center justify-center modal-overlay hidden z-50 p-4">
+    <div class="modal-content bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden">
+      <div class="flex flex-col lg:flex-row">
+        <!-- Image Section -->
+        <div class="lg:w-1/2">
+          <div class="modal-image-container">
+            <img id="modalPlayerImage" src="" alt="Player" class="modal-player-image">
+          </div>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="lg:w-1/2 p-6 lg:p-8">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h2 id="modalPlayerName" class="text-2xl font-bold text-gray-900 mb-2"></h2>
+              <p id="modalPlayerNickname" class="text-lg text-gray-600 mb-1"></p>
+              <div class="flex items-center gap-3 mb-4">
+                <span id="modalPlayerJersey" class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-semibold"></span>
+                <span id="modalPlayerPosition" class="position-badge"></span>
+              </div>
+            </div>
+            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+          </div>
+          
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div id="modalPlayerAppearances" class="stat-value"></div>
+              <div class="stat-label">Appearances</div>
+            </div>
+            <div class="stat-item">
+              <div id="modalPlayerGoals" class="stat-value"></div>
+              <div class="stat-label">Goals</div>
+            </div>
+            <div class="stat-item">
+              <div id="modalPlayerAssists" class="stat-value"></div>
+              <div class="stat-label">Assists</div>
+            </div>
+            <div id="cleanSheetsContainer" class="stat-item hidden">
+              <div id="modalPlayerCleanSheets" class="stat-value"></div>
+              <div class="stat-label">Clean Sheets</div>
+            </div>
+          </div>
+          
+          <!-- Navigation -->
+          <div class="flex justify-between mt-8">
+            <button onclick="navigatePlayer(-1)" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg transition-colors">
+              ← Previous
+            </button>
+            <button onclick="navigatePlayer(1)" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg transition-colors">
+              Next →
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -80,7 +219,7 @@
     {
         name: "Francis Muriithi",
         nickname: "Franko",
-        image: "images/Franko (2).png",
+        image: "  IMAGES/profile/Frankgk1.jpeg",
         jersey: 1,
         position: "Goalkeeper",
         appearances: 18,
@@ -89,9 +228,9 @@
         cleanSheets: 7
     },
     {
-        name: "Jefferson Mutembei",
-        nickname: "Jeff",
-        image: "images/Jefferson.png",
+        name: "Issac Lumire",
+        nickname: "Zack",
+        image: "IMAGES/profile/npc1.jpeg",
         jersey: 4,
         position: "Defender",
         appearances: 16,
@@ -102,7 +241,7 @@
     {
         name: "John Mwilu",
         nickname: "Mwilu",
-        image: "images/Mwilu.png",
+        image: "/IMAGES/profile/Mwilu.jpeg",
         jersey: 5,
         position: "Defender",
         appearances: 17,
@@ -113,7 +252,7 @@
     {
         name: "Wainaina Victor",
         nickname: "Vickyy",
-        image: "images/Vickyy (2).png",
+        image: "IMAGES/profile/vicky.jpeg",
         jersey: 9,
         position: "Attack",
         appearances: 19,
@@ -123,7 +262,7 @@
     {
         name: "Peter Mwendwa",
         nickname: "Peter",
-        image: "images/Peter Mwendwa (2).png",
+        image: "IMAGES/profile/PeterM.jpeg",
         jersey: 3,
         position: "Defender",
         appearances: 18,
@@ -134,7 +273,7 @@
     {
         name: "Michael Mwakolo",
         nickname: "Mwakolo",
-        image: "images/Mwakolo.png",
+        image: "IMAGES/profile/Mwakolo.jpeg",
         jersey: 8,
         position: "Midfielder",
         appearances: 15,
@@ -144,7 +283,7 @@
     {
         name: "Dylan Denousse",
         nickname: "Op",
-        image: "images/Op.png",
+        image: "IMAGES/profile/Zeus.jpeg",
         jersey: 6,
         position: "Midfielder",
         appearances: 14,
@@ -154,7 +293,7 @@
     {
         name: "Sammy Ribui",
         nickname: "Ribui",
-        image: "images/Ribui.png",
+        image: "IMAGES/profile/SammyR.jpeg",
         jersey: 2,
         position: "Defender",
         appearances: 17,
@@ -164,8 +303,8 @@
     },
     {
         name: "Ezekiel King'ori",
-        nickname: "Zekie",
-        image: "images/Ezekiel.png",
+        nickname: "Beast",
+        image: "IMAGES/profile/Beast1.jpeg",
         jersey: 12,
         position: "Defender",
         appearances: 16,
@@ -176,7 +315,7 @@
     {
         name: "Dalmas Muthama",
         nickname: "Dalmas",
-        image: "images/Dalmas (2).png",
+        image: "IMAGES/profile/Dalmas.jpeg",
         jersey: 13,
         position: "Defender",
         appearances: 15,
@@ -187,7 +326,7 @@
     {
         name: "Jeff Gitau",
         nickname: "Hazard",
-        image: "images/Hazard.png",
+        image: "IMAGES/profile/Hazard.jpeg",
         jersey: 10,
         position: "Midfielder",
         appearances: 16,
@@ -197,7 +336,7 @@
     {
         name: "Matthias Kavuttih",
         nickname: "Mathiass",
-        image: "images/Mathiass.png",
+        image: "IMAGES/profile/Mathias.jpeg",
         jersey: 11,
         position: "Midfielder",
         appearances: 13,
@@ -207,8 +346,8 @@
     {
         name: "Dennis Kavutti",
         nickname: "Mzazi",
-        image: "images/Mzazi.png",
-        jersey: 18,
+        image: "IMAGES/profile/Mzae1.jpeg",
+        jersey: 16,
         position: "Attack",
         appearances: 17,
         goals: 5,
@@ -217,7 +356,7 @@
     {
         name: "Daniel Mwikya",
         nickname: "Dante",
-        image: "images/Dante.png",
+        image: "IMAGES/profile/DMwikya.jpeg",
         jersey: 14,
         position: "Defender",
         appearances: 13,
@@ -228,7 +367,7 @@
     {
         name: "Dennis Kavita",
         nickname: "Capello",
-        image: "images/Capello.png",
+        image: "IMAGES/profile/Capello.jpeg",
         jersey: 17,
         position: "Midfielder",
         appearances: 12,
@@ -236,9 +375,20 @@
         assists: 1
     },
     {
+        name: "Jefferson Mutembei",
+        nickname: "Jeff",
+        image: "IMAGES/profile/Jeff1.jpeg",
+        jersey: 4,
+        position: "Defender",
+        appearances: 16,
+        goals: 1,
+        assists: 2,
+        cleanSheets: 6
+    },
+    {
         name: "Samuel Karanja",
         nickname: "Sammy",
-        image: "images/Sammy Gk (2).png",
+        image: "IMAGES/profile/Sam.jpeg",
         jersey: 22,
         position: "Goalkeeper",
         appearances: 12,
@@ -249,7 +399,7 @@
     {
         name: "Nelson Mutuma",
         nickname: "Zola",
-        image: "images/Zola.png",
+        image: "IMAGES/profile/Zola1.jpeg",
         jersey: 19,
         position: "Attack",
         appearances: 14,
@@ -259,8 +409,8 @@
     {
         name: "Kennedy Nduati",
         nickname: "Kenny",
-        image: "images/Kenny.png",
-        jersey: 21,
+        image: "IMAGES/profile/Ken.jpeg",
+        jersey: 7,
         position: "Attack",
         appearances: 15,
         goals: 4,
@@ -269,7 +419,7 @@
     {
         name: "Geoffrey Ngetich",
         nickname: "Geoffrey",
-        image: "images/Geofrey.png",
+        image: "IMAGES/profile/Geofrey.jpeg",
         jersey: 23,
         position: "Attack",
         appearances: 10,
@@ -278,8 +428,8 @@
     },
     {
         name: "Kevin Mwaura",
-        nickname: "Kev",
-        image: "images/Kevin Mwaura (2).png",
+        nickname: "Herera",
+        image: "/IMAGES/profile/Kevin Mwaura1.jpeg",
         jersey: 16,
         position: "Defender",
         appearances: 13,
@@ -290,7 +440,7 @@
     {
         name: "Alex Mbuthia",
         nickname: "Alex",
-        image: "images/Alex Mbuthia (2).png",
+        image: "IMAGES/profile/Alex.jpeg",
         jersey: 15,
         position: "Midfielder",
         appearances: 12,
@@ -300,7 +450,7 @@
     {
         name: "Ahadi Kamau",
         nickname: "Ahadi",
-        image: "images/Ahadi (2).png",
+        image: "IMAGES/profile/Ahadi.jpeg",
         jersey: 7,
         position: "Midfielder",
         appearances: 11,
@@ -310,7 +460,7 @@
     {
         name: "Bernard Mburu",
         nickname: "Ben 10",
-        image: "images/Vicky and ben 10.jpeg",
+        image: "IMAGES/profile/Ben10.jpeg",
         jersey: 20,
         position: "Defender",
         appearances: 14,
@@ -321,7 +471,7 @@
     {
         name: "Brian Ndung'u",
         nickname: "Brayoo",
-        image: "images/Brayoo.png",
+        image: "IMAGES/profile/Brayo.jpeg",
         jersey: 24,
         position: "Midfielder",
         appearances: 9,
@@ -331,7 +481,7 @@
     {
         name: "Michael Marite",
         nickname: "Marite",
-        image: "images/Marite.png",
+        image: "IMAGES/profile/Marite.jpeg",
         jersey: 25,
         position: "Attack",
         appearances: 13,
@@ -341,7 +491,7 @@
     {
         name: "Pyron Obaga",
         nickname: "Pyro",
-        image: "images/pyron Obaga (2).png",
+        image: "IMAGES/profile/Pyron.jpeg",
         jersey: 26,
         position: "Attack",
         appearances: 12,
@@ -355,7 +505,17 @@
     let searchTerm = '';
     let currentIndex = 0;
     let currentPage = 1;
-    const playersPerPage = 8;
+    const playersPerPage = 10;
+
+    function getPositionClass(position) {
+      const positionMap = {
+        'Attack': 'position-attack',
+        'Midfielder': 'position-midfielder',
+        'Defender': 'position-defender',
+        'Goalkeeper': 'position-goalkeeper'
+      };
+      return positionMap[position] || 'position-midfielder';
+    }
 
     function filterPlayers(position) {
       filteredPlayers = position === 'All' ? allPlayers : allPlayers.filter(p => p.position === position);
@@ -383,16 +543,24 @@
       container.innerHTML = '';
       const start = (currentPage - 1) * playersPerPage;
       const paginated = list.slice(start, start + playersPerPage);
+
       paginated.forEach((player, index) => {
         const card = document.createElement('div');
-        card.className = 'bg-white rounded shadow hover:shadow-lg transition cursor-pointer';
+        card.className = 'player-card bg-white';
+
         card.innerHTML = `
-          <img src="${player.image}" alt="${player.name}" class="w-full h-48 object-cover rounded-t">
+          <div class="image-container">
+            <img src="${player.image}" alt="${player.name}" class="player-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMDAgMTEwQzExNS40NjQgMTEwIDEyNy45OTkgOTcuNDY0NCAxMjcuOTk5IDgyQzEyNy45OTkgNjYuNTM1NiAxMTUuNDY0IDU0IDEwMCA1NEM4NC41MzU2IDU0IDcyIDY2LjUzNTYgNzIgODJDNzIgOTcuNDY0NCA4NC41MzU2IDExMCAxMDAgMTEwWiIgZmlsbD0iIzlDQTBBNiIvPgo8cGF0aCBkPSJNMTY4IDE0NkMxNjggMTM0Ljk1NCAxNTkuMDQ2IDEyNiAxNDggMTI2SDUyQzQwLjk1NCAxMjYgMzIgMTM0Ljk1NCAzMiAxNDZWMjAwSDE2OFYxNDZaIiBmaWxsPSIjOUNBMEE2Ii8+Cjwvc3ZnPgo='" />
+          </div>
           <div class="p-4">
-            <h3 class="text-lg font-bold">${player.name}</h3>
-            <p class="text-sm text-gray-600">${player.position}</p>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">${player.name}</h3>
+            <div class="flex items-center justify-between">
+              <span class="position-badge ${getPositionClass(player.position)}">${player.position}</span>
+              <span class="text-sm text-gray-500">#${player.jersey}</span>
+            </div>
           </div>
         `;
+
         card.onclick = () => openModal(start + index);
         container.appendChild(card);
       });
@@ -401,15 +569,28 @@
     function openModal(index) {
       currentIndex = index;
       const player = filteredPlayers[index];
+      
       document.getElementById('modalPlayerImage').src = player.image;
-      document.getElementById('modalPlayerName').textContent = `Name: ${player.name}`;
-      document.getElementById('modalPlayerNickname').textContent = `Nickname: ${player.nickname}`;
-      document.getElementById('modalPlayerJersey').textContent = `Jersey Number: ${player.jersey}`;
-      document.getElementById('modalPlayerPosition').textContent = `Position: ${player.position}`;
-      document.getElementById('modalPlayerAppearances').textContent = `Appearances: ${player.appearances}`;
-      document.getElementById('modalPlayerGoals').textContent = `Goals: ${player.goals}`;
-      document.getElementById('modalPlayerAssists').textContent = `Assists: ${player.assists}`;
-      document.getElementById('modalPlayerCleanSheets').textContent = (player.position === 'Defense' || player.position === 'Keeper') ? `Clean Sheets: ${player.cleanSheets}` : '';
+      document.getElementById('modalPlayerName').textContent = player.name;
+      document.getElementById('modalPlayerNickname').textContent = `"${player.nickname}"`;
+      document.getElementById('modalPlayerJersey').textContent = `#${player.jersey}`;
+      
+      const positionElement = document.getElementById('modalPlayerPosition');
+      positionElement.textContent = player.position;
+      positionElement.className = `position-badge ${getPositionClass(player.position)}`;
+      
+      document.getElementById('modalPlayerAppearances').textContent = player.appearances;
+      document.getElementById('modalPlayerGoals').textContent = player.goals;
+      document.getElementById('modalPlayerAssists').textContent = player.assists;
+      
+      const cleanSheetsContainer = document.getElementById('cleanSheetsContainer');
+      if (player.cleanSheets !== undefined) {
+        document.getElementById('modalPlayerCleanSheets').textContent = player.cleanSheets;
+        cleanSheetsContainer.classList.remove('hidden');
+      } else {
+        cleanSheetsContainer.classList.add('hidden');
+      }
+      
       document.getElementById('playerModal').classList.remove('hidden');
     }
 
@@ -437,6 +618,13 @@
         searchPlayers();
       }
     }
+
+    // Close modal when clicking outside
+    document.getElementById('playerModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
 
     // Initial render
     filterPlayers('All');
